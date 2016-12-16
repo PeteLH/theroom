@@ -16,14 +16,18 @@ public class InteractableCheck : MonoBehaviour {
     public AudioClip objectNameUi;
     public AudioClip objectInfoUi;
     public AudioClip objectClearUi;
+    public int roomNumber;
 
     bool TriggerOnceLookAtAudio = false;
     bool triggeroncestopLooingat = true;
+
+    GameObject audioboy;
 
     void Start()
     {
         playerAudio = GameObject.Find("FPSController").GetComponent<AudioSource>();
         objectLine.enabled = false;
+        audioboy = GameObject.Find("AudioBoy");
     }
 
     RaycastHit cache;
@@ -124,6 +128,40 @@ public class InteractableCheck : MonoBehaviour {
         {
             triggeroncestopLooingat = true;
             playerAudio.PlayOneShot(objectClearUi, 0.75f);
+        }
+    }
+
+    public void AddToRoomNumber()
+    {
+        roomNumber++;
+
+        switch (roomNumber)
+        {
+            case 0:
+                break;
+            case 1:
+                audioboy.transform.GetChild(0).GetComponent<AudioSource>().mute = true;
+                audioboy.transform.GetChild(1).GetComponent<AudioSource>().mute = false;
+                break;
+            case 2:
+                audioboy.transform.GetChild(2).GetComponent<AudioSource>().mute = false;
+                audioboy.transform.GetChild(1).GetComponent<AudioSource>().mute = true;
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+        }
+
+        if (roomNumber != 2)
+        {
+            audioboy.transform.GetChild(2).GetComponent<AudioSource>().mute = true;
         }
     }
 }

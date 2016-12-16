@@ -17,15 +17,12 @@ public class ObjectData : MonoBehaviour {
     public bool isLightsOn;
     public GameObject teleportTarget;
 
-    // Use this for initialization
-    void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
+    public GameObject player;
 
+    // Use this for initialization
+    void Start ()
+    {
+        player = GameObject.Find("FPSController").GetComponent<Transform>().GetChild(1).gameObject;
     }
 
     public void use()
@@ -60,5 +57,6 @@ public class ObjectData : MonoBehaviour {
     {
         GameObject tempPlayer = GameObject.Find("FPSController");
         tempPlayer.transform.position = teleportTarget.transform.position;
+        player.GetComponent<InteractableCheck>().AddToRoomNumber();
     }
 }
