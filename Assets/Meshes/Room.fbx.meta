@@ -7,13 +7,26 @@ ModelImporter:
   fileIDToRecycleName:
     100000: pasted__pCube6
     100002: //RootNode
+    100004: pasted__pCube7
+    100006: pCube11
     400000: pasted__pCube6
     400002: //RootNode
+    400004: pasted__pCube7
+    400006: pCube11
     2300000: pasted__pCube6
+    2300002: //RootNode
+    2300004: pasted__pCube7
+    2300006: pCube11
     3300000: pasted__pCube6
+    3300002: //RootNode
+    3300004: pasted__pCube7
+    3300006: pCube11
     4300000: pasted__pCube6
+    4300002: pasted__pCube7
+    4300004: pCube11
+    4300006: pCube12
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
