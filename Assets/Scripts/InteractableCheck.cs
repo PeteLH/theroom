@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class InteractableCheck : MonoBehaviour {
 
@@ -17,15 +18,18 @@ public class InteractableCheck : MonoBehaviour {
     public AudioClip objectInfoUi;
     public AudioClip objectClearUi;
     public int roomNumber;
+    public Image blackScreen;
 
     bool TriggerOnceLookAtAudio = false;
     bool triggeroncestopLooingat = true;
 
+    GameObject playerController;
     GameObject audioboy;
 
     void Start()
     {
-        playerAudio = GameObject.Find("FPSController").GetComponent<AudioSource>();
+        playerController = GameObject.Find("FPSController");
+        playerAudio = playerController.GetComponent<AudioSource>();
         objectLine.enabled = false;
         audioboy = GameObject.Find("AudioBoy");
     }
@@ -135,6 +139,10 @@ public class InteractableCheck : MonoBehaviour {
     {
         roomNumber++;
 
+        blackScreen.GetComponent<Image>().enabled = true;
+        StartCoroutine(DIsableBlackScreen());
+        playerController.GetComponent<FirstPersonController>().enabled = false;
+
         switch (roomNumber)
         {
             case 0:
@@ -163,5 +171,12 @@ public class InteractableCheck : MonoBehaviour {
         {
             audioboy.transform.GetChild(2).GetComponent<AudioSource>().mute = true;
         }
+    }
+
+    IEnumerator DIsableBlackScreen()
+    {
+        yield return new WaitForSeconds(1.5f);
+        blackScreen.GetComponent<Image>().enabled = false;
+        playerController.GetComponent<FirstPersonController>().enabled = true;
     }
 }
