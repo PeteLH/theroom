@@ -61,11 +61,14 @@ public class ObjectData : MonoBehaviour {
             if (isCloased == false)
             {
                 ObjectToAnimate.GetComponent<Animation>().Play("CloseDrawr");
-            }
 
-            if ((isCloased == true))
+                isCloased = true;
+            }
+            else if ((isCloased == true))
             {
                 ObjectToAnimate.GetComponent<Animation>().Play("OpenDrawr");
+
+                isCloased = false;
             }
         }
     }
