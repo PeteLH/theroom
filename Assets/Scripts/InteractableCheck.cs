@@ -74,7 +74,7 @@ public class InteractableCheck : MonoBehaviour {
             Ray ray1 = GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             //Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
             if (Physics.Raycast(ray1, out hit1, rayDistance))
-                if (hit1.transform.tag == "Interactable")
+                if (hit1.transform.tag == "Interactable" & hit1.collider.gameObject.GetComponent<ObjectData>().isUseable == false)
                 {
                     objectDescription();
                     objectLine.enabled = true;
@@ -84,26 +84,20 @@ public class InteractableCheck : MonoBehaviour {
                         TutText.enabled = false;
                     }
                 }
-        }
-
-        if (hit1.collider != null & hit.collider != null)
-        {
-            if (hit.collider == hit1.collider & hit1.transform.tag == "Interactable")
-            {
-                if (hit1.collider.gameObject.GetComponent<ObjectData>().isUseable == true)
+                else if (hit1.transform.tag == "Interactable" & hit1.collider.gameObject.GetComponent<ObjectData>().isUseable == true)
                 {
-                    if (Input.GetKeyDown("e"))
+                    if (hit1.collider != null & hit.collider != null)
                     {
-                        hit1.collider.gameObject.GetComponent<ObjectData>().use();
+                        if (hit.collider == hit1.collider)
+                        {
+                            hit1.collider.gameObject.GetComponent<ObjectData>().use();
+                        }
                     }
-                }
-                else
-                {
-
                 }
             }
         }
-    }
+
+        
 
     public void ObjectsName()
     {

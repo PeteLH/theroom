@@ -12,6 +12,8 @@ public class ObjectData : MonoBehaviour {
     public bool isUseable;
     public bool isTeleportDoor;
     public bool isLightSwitch;
+    public bool isAnimated;
+    public GameObject ObjectToAnimate;
 
     public Light[] SwitchLights;
     public bool isLightsOn;
@@ -24,6 +26,8 @@ public class ObjectData : MonoBehaviour {
     {
         player = GameObject.Find("FPSController").GetComponent<Transform>().GetChild(1).gameObject;
     }
+
+    bool isCloased = false;
 
     public void use()
     {
@@ -49,6 +53,19 @@ public class ObjectData : MonoBehaviour {
                     lightVar.enabled = true;
                     isLightsOn = true;
                 }
+            }
+        }
+
+        if (isAnimated == true)
+        {
+            if (isCloased == false)
+            {
+                ObjectToAnimate.GetComponent<Animation>().Play("CloseDrawr");
+            }
+
+            if ((isCloased == true))
+            {
+                ObjectToAnimate.GetComponent<Animation>().Play("OpenDrawr");
             }
         }
     }
