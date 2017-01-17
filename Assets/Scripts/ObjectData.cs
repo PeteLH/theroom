@@ -58,18 +58,28 @@ public class ObjectData : MonoBehaviour {
 
         if (isAnimated == true)
         {
-            if (isCloased == false)
-            {
-                ObjectToAnimate.GetComponent<Animation>().Play("CloseDrawr");
 
-                isCloased = true;
-            }
-            else if ((isCloased == true))
-            {
-                ObjectToAnimate.GetComponent<Animation>().Play("OpenDrawr");
+            // public gameobject itemToAnimate
+            // enum type of object to animate (drawer, door, lightswitch, etc.)
+            //
+            // depending on the enum set in the inspector...
+            // ...call the script that relates to this, for example "DrawerAnimationController" on the "itemToAnimate" gameobject.
+            // ^ might be abe to do the above in this script
+            // 
+            //
 
-                isCloased = false;
-            }
+            //if (isCloased == false)
+            //{
+            //    ObjectToAnimate.GetComponent<Animation>().Play("CloseDrawr");
+
+            //    isCloased = true;
+            //}
+            //else if ((isCloased == true))
+            //{
+            //    ObjectToAnimate.GetComponent<Animation>().Play("OpenDrawr");
+
+            //    isCloased = false;
+            //}
         }
     }
 
