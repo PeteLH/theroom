@@ -17,6 +17,7 @@ public class ObjectData : MonoBehaviour {
     bool isCloased = true;
 
     public Light[] SwitchLights;
+    //public Material[] SwitchMaterials; - an array o matterials to toggle
     public bool isLightsOn;
     public GameObject teleportTarget;
 
