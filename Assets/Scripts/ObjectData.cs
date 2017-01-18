@@ -13,7 +13,8 @@ public class ObjectData : MonoBehaviour {
     public bool isTeleportDoor;
     public bool isLightSwitch;
     public bool isAnimated;
-    public GameObject ObjectToAnimate;
+    public Animator ObjectToAnimate;
+    bool isCloased = true;
 
     public Light[] SwitchLights;
     public bool isLightsOn;
@@ -26,8 +27,6 @@ public class ObjectData : MonoBehaviour {
     {
         player = GameObject.Find("FPSController").GetComponent<Transform>().GetChild(1).gameObject;
     }
-
-    bool isCloased = false;
 
     public void use()
     {
@@ -68,18 +67,18 @@ public class ObjectData : MonoBehaviour {
             // 
             //
 
-            //if (isCloased == false)
-            //{
-            //    ObjectToAnimate.GetComponent<Animation>().Play("CloseDrawr");
+            if (isCloased == false)
+            {
+                drawers("Close");
 
-            //    isCloased = true;
-            //}
-            //else if ((isCloased == true))
-            //{
-            //    ObjectToAnimate.GetComponent<Animation>().Play("OpenDrawr");
+                isCloased = true;
+            }
+            else if ((isCloased == true))
+            {
+                drawers("Open");
 
-            //    isCloased = false;
-            //}
+                isCloased = false;
+            }
         }
     }
 
@@ -88,5 +87,10 @@ public class ObjectData : MonoBehaviour {
         GameObject tempPlayer = GameObject.Find("FPSController");
         tempPlayer.transform.position = teleportTarget.transform.position;
         player.GetComponent<InteractableCheck>().AddToRoomNumber();
+    }
+
+    public void drawers (string direction)
+    {
+        ObjectToAnimate.SetTrigger(direction);
     }
 }
