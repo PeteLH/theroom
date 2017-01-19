@@ -17,7 +17,9 @@ public class ObjectData : MonoBehaviour {
     bool isCloased = true;
 
     public Light[] SwitchLights;
-    //public Material[] SwitchMaterials; - an array o matterials to toggle
+    public Renderer rendererToSwitchMat;
+    public Material[] lightsOnMats;
+    public Material[] lightsOffMats;
     public bool isLightsOn;
     public GameObject teleportTarget;
 
@@ -43,6 +45,7 @@ public class ObjectData : MonoBehaviour {
                 foreach (Light lightVar in SwitchLights)
                 {
                     lightVar.enabled = false;
+                    rendererToSwitchMat.sharedMaterials = lightsOffMats;
                     isLightsOn = false;
                 }
             }
@@ -51,6 +54,7 @@ public class ObjectData : MonoBehaviour {
                 foreach (Light lightVar in SwitchLights)
                 {
                     lightVar.enabled = true;
+                    rendererToSwitchMat.sharedMaterials = lightsOnMats;
                     isLightsOn = true;
                 }
             }
