@@ -31,6 +31,12 @@ ModelImporter:
     100046: transform4
     100048: transform5
     100050: transform6
+    100052: Bulb
+    100054: BulbHolder
+    100056: LampBody
+    100058: Shade
+    100060: ShadeMetalSupport
+    100062: LampBody1
     400000: //RootNode
     400002: group
     400004: group1
@@ -57,24 +63,48 @@ ModelImporter:
     400046: transform4
     400048: transform5
     400050: transform6
+    400052: Bulb
+    400054: BulbHolder
+    400056: LampBody
+    400058: Shade
+    400060: ShadeMetalSupport
+    400062: LampBody1
     2300000: group_pasted__pCylinder2
     2300002: pCube1
     2300004: pCylinder3
     2300006: pPipe1
     2300008: pSphere1
     2300010: pTorus1
+    2300012: Bulb
+    2300014: BulbHolder
+    2300016: LampBody
+    2300018: Shade
+    2300020: ShadeMetalSupport
+    2300022: LampBody1
     3300000: group_pasted__pCylinder2
     3300002: pCube1
     3300004: pCylinder3
     3300006: pPipe1
     3300008: pSphere1
     3300010: pTorus1
+    3300012: Bulb
+    3300014: BulbHolder
+    3300016: LampBody
+    3300018: Shade
+    3300020: ShadeMetalSupport
+    3300022: LampBody1
     4300000: pCube1
     4300002: pTorus1
     4300004: pPipe1
     4300006: pSphere1
     4300008: pCylinder3
     4300010: group_pasted__pCylinder2
+    4300012: Shade
+    4300014: Bulb
+    4300016: BulbHolder
+    4300018: LampBody
+    4300020: ShadeMetalSupport
+    4300022: LampBody1
     9500000: //RootNode
   materials:
     importMaterials: 1

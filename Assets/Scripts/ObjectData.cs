@@ -10,6 +10,8 @@ public class ObjectData : MonoBehaviour {
     public string ObjectDescription;
 
     public bool isUseable;
+    public AudioSource onUseAudioSource;
+    public AudioClip onUseAudioClip;
     public bool isTeleportDoor;
     public bool isLightSwitch;
     public bool isAnimated;
@@ -85,6 +87,9 @@ public class ObjectData : MonoBehaviour {
                 isCloased = false;
             }
         }
+
+        onUseAudioSource.PlayOneShot(onUseAudioClip, 1f);
+
     }
 
     public void GoHere()
