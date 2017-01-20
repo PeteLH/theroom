@@ -4,17 +4,20 @@ using UnityEditor;
 using UnityEngine.UI;
 
 public class ObjectData : MonoBehaviour {
-
+    
     public string ObjectName;
     [TextArea(3, 10)]
     public string ObjectDescription;
 
     public bool isUseable;
-    public AudioSource onUseAudioSource;
-    public AudioClip onUseAudioClip;
     public bool isTeleportDoor;
     public bool isLightSwitch;
     public bool isAnimated;
+
+    public AudioSource onUseAudioSource;
+    public AudioClip[] onUseClipsToPlay;
+    int AudioClipCounter;
+
     public Animator ObjectToAnimate;
     bool isCloased = true;
 
@@ -47,8 +50,12 @@ public class ObjectData : MonoBehaviour {
                 foreach (Light lightVar in SwitchLights)
                 {
                     lightVar.enabled = false;
-                    rendererToSwitchMat.sharedMaterials = lightsOffMats;
                     isLightsOn = false;
+
+                    if (rendererToSwitchMat != null)
+                    {
+                        rendererToSwitchMat.sharedMaterials = lightsOffMats;
+                    }
                 }
             }
             else if (isLightsOn == false)
@@ -56,9 +63,13 @@ public class ObjectData : MonoBehaviour {
                 foreach (Light lightVar in SwitchLights)
                 {
                     lightVar.enabled = true;
-                    rendererToSwitchMat.sharedMaterials = lightsOnMats;
                     isLightsOn = true;
-                }
+
+                    if (rendererToSwitchMat != null)
+                    {
+                        rendererToSwitchMat.sharedMaterials = lightsOnMats;
+                    }
+               }
             }
         }
 
@@ -88,8 +99,16 @@ public class ObjectData : MonoBehaviour {
             }
         }
 
-        onUseAudioSource.PlayOneShot(onUseAudioClip, 1f);
+        if (onUseClipsToPlay.Length != 0)
+        {
+            onUseAudioSource.PlayOneShot(onUseClipsToPlay[AudioClipCounter], 1f);
 
+            AudioClipCounter++;
+            if (AudioClipCounter == onUseClipsToPlay.Length)
+            {
+                AudioClipCounter = 0;
+            }
+        }
     }
 
     public void GoHere()
