@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditor;
 using UnityEngine.UI;
 
 public class ObjectData : MonoBehaviour {
@@ -19,7 +18,9 @@ public class ObjectData : MonoBehaviour {
     int AudioClipCounter;
 
     public Animator ObjectToAnimate;
-    bool isCloased = true;
+    public enum SpcifyAnimation { BedsideDrawer, WardobeDoor };
+    public SpcifyAnimation AnimType;
+    public bool isCloased;
 
     public Light[] SwitchLights;
     public Renderer rendererToSwitchMat;
@@ -71,6 +72,8 @@ public class ObjectData : MonoBehaviour {
                     }
                }
             }
+
+            playAudio();
         }
 
         if (isAnimated == true)
@@ -83,30 +86,40 @@ public class ObjectData : MonoBehaviour {
             // ...call the script that relates to this, for example "DrawerAnimationController" on the "itemToAnimate" gameobject.
             // ^ might be abe to do the above in this script
             // 
-            //
 
-            if (isCloased == false)
+            switch(AnimType)
             {
-                drawers("Close");
+                case SpcifyAnimation.BedsideDrawer:
 
-                isCloased = true;
-            }
-            else if ((isCloased == true))
-            {
-                drawers("Open");
+                    if (isCloased == false)
+                    {
+                        PassOpenCloseTrigger("Close");
 
-                isCloased = false;
-            }
-        }
+                        isCloased = true;
+                    }
+                    else if ((isCloased == true))
+                    {
+                        PassOpenCloseTrigger("Open");
 
-        if (onUseClipsToPlay.Length != 0)
-        {
-            onUseAudioSource.PlayOneShot(onUseClipsToPlay[AudioClipCounter], 1f);
+                        isCloased = false;
+                    }
+                    break;
 
-            AudioClipCounter++;
-            if (AudioClipCounter == onUseClipsToPlay.Length)
-            {
-                AudioClipCounter = 0;
+                case SpcifyAnimation.WardobeDoor:
+
+                    if (isCloased == false)
+                    {
+                        PassOpenCloseTrigger("Close");
+
+                        isCloased = true;
+                    }
+                    else if ((isCloased == true))
+                    {
+                        PassOpenCloseTrigger("Open");
+
+                        isCloased = false;
+                    }
+                    break;
             }
         }
     }
@@ -118,8 +131,22 @@ public class ObjectData : MonoBehaviour {
         player.GetComponent<InteractableCheck>().AddToRoomNumber();
     }
 
-    public void drawers (string direction)
+    public void PassOpenCloseTrigger (string direction)
     {
         ObjectToAnimate.SetTrigger(direction);
+    }
+    
+    public void playAudio()
+    {
+        if (onUseClipsToPlay.Length != 0)
+        {
+            onUseAudioSource.PlayOneShot(onUseClipsToPlay[AudioClipCounter], 1f);
+
+            AudioClipCounter++;
+            if (AudioClipCounter == onUseClipsToPlay.Length)
+            {
+                AudioClipCounter = 0;
+            }
+        }
     }
 }

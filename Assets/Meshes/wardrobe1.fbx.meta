@@ -15,6 +15,15 @@ ModelImporter:
     100014: pasted__pCube19
     100016: pCube5
     100018: pCube6
+    100020: Body
+    100022: LeftDoor
+    100024: RightDoor
+    100026: Handle
+    100028: Handle 1
+    100030: Pannel
+    100032: Pannel 1
+    100034: group1
+    100036: group2
     400000: pasted__pCube16
     400002: //RootNode
     400004: pasted__pCube17
@@ -25,6 +34,15 @@ ModelImporter:
     400014: pasted__pCube19
     400016: pCube5
     400018: pCube6
+    400020: Body
+    400022: LeftDoor
+    400024: RightDoor
+    400026: Handle
+    400028: Handle 1
+    400030: Pannel
+    400032: Pannel 1
+    400034: group1
+    400036: group2
     2300000: pasted__pCube16
     2300002: pasted__pCube17
     2300004: pasted__pCube18
@@ -33,6 +51,13 @@ ModelImporter:
     2300010: pasted__pCube19
     2300012: pCube5
     2300014: pCube6
+    2300016: Body
+    2300018: LeftDoor
+    2300020: RightDoor
+    2300022: Handle
+    2300024: Handle 1
+    2300026: Pannel
+    2300028: Pannel 1
     3300000: pasted__pCube16
     3300002: pasted__pCube17
     3300004: pasted__pCube18
@@ -41,6 +66,13 @@ ModelImporter:
     3300010: pasted__pCube19
     3300012: pCube5
     3300014: pCube6
+    3300016: Body
+    3300018: LeftDoor
+    3300020: RightDoor
+    3300022: Handle
+    3300024: Handle 1
+    3300026: Pannel
+    3300028: Pannel 1
     4300000: pasted__pCube16
     4300002: pasted__pCube17
     4300004: pasted__pCube18
@@ -49,6 +81,13 @@ ModelImporter:
     4300010: pCube5
     4300012: pCube6
     4300014: pasted__pCube19
+    4300016: RightDoor
+    4300018: LeftDoor
+    4300020: Body
+    4300022: Pannel
+    4300024: Handle
+    4300026: Pannel
+    4300028: Handle
   materials:
     importMaterials: 0
     materialName: 0

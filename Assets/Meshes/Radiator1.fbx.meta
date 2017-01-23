@@ -65,6 +65,7 @@ ModelImporter:
     100114: polySurface213
     100116: polySurface214
     100118: polySurface215
+    100120: pCube22
     400000: pCube17
     400002: pCube18
     400004: pCube19
@@ -125,6 +126,7 @@ ModelImporter:
     400114: polySurface213
     400116: polySurface214
     400118: polySurface215
+    400120: pCube22
     2300000: pCube17
     2300002: pCube18
     2300004: pCube19
