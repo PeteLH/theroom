@@ -40,8 +40,10 @@ public class InteractableCheck : MonoBehaviour {
     {
         //mouse over interactable
         Ray ray = GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
+        //Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
+
         if (Physics.Raycast(ray, out hit, rayDistance))
+
             if (hit.transform.tag == "Interactable")
             {
                 crosshair.color = new Color32(0, 255, 1, 30);
@@ -73,26 +75,33 @@ public class InteractableCheck : MonoBehaviour {
         {
             Ray ray1 = GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             //Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
+
             if (Physics.Raycast(ray1, out hit1, rayDistance))
-                if (hit1.transform.tag == "Interactable" & hit1.collider.gameObject.GetComponent<ObjectData>().isUseable == false)
+
+                if (hit1.transform.tag == "Interactable")
                 {
-                    objectDescription();
-                    objectLine.enabled = true;
+                    if (hit1.collider.gameObject.GetComponent<ObjectData>().isUseable == false)
+                    {
+                        objectDescription();
+                        objectLine.enabled = true;
+                    }
+
+                    if (hit1.collider.gameObject.GetComponent<ObjectData>().isUseable == true)
+                    {
+                        if (hit1.collider != null & hit.collider != null)
+                        {
+                            if (hit.collider == hit1.collider)
+                            {
+                                hit1.collider.gameObject.GetComponent<ObjectData>().use();
+                            }
+                        }
+                    }
 
                     if (TutText.enabled == true)
                     {
                         TutText.enabled = false;
                     }
-                }
-                else if (hit1.transform.tag == "Interactable" & hit1.collider.gameObject.GetComponent<ObjectData>().isUseable == true)
-                {
-                    if (hit1.collider != null & hit.collider != null)
-                    {
-                        if (hit.collider == hit1.collider)
-                        {
-                            hit1.collider.gameObject.GetComponent<ObjectData>().use();
-                        }
-                    }
+
                 }
             }
         }
