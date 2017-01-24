@@ -18,7 +18,7 @@ public class ObjectData : MonoBehaviour {
     int AudioClipCounter;
 
     public Animator ObjectToAnimate;
-    public enum SpcifyAnimation { BedsideDrawer, WardobeDoor };
+    public enum SpcifyAnimation { BedsideDrawer, WardobeDoor, DeskDoor };
     public SpcifyAnimation AnimType;
     public bool isCloased;
 
@@ -106,6 +106,22 @@ public class ObjectData : MonoBehaviour {
                     break;
 
                 case SpcifyAnimation.WardobeDoor:
+
+                    if (isCloased == false)
+                    {
+                        PassOpenCloseTrigger("Close");
+
+                        isCloased = true;
+                    }
+                    else if ((isCloased == true))
+                    {
+                        PassOpenCloseTrigger("Open");
+
+                        isCloased = false;
+                    }
+                    break;
+
+                case SpcifyAnimation.DeskDoor:
 
                     if (isCloased == false)
                     {
