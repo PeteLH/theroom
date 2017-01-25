@@ -9,16 +9,17 @@ public class ObjectData : MonoBehaviour {
     public string ObjectDescription;
 
     public bool isUseable;
-    public bool isTeleportDoor;
+    //public bool isTeleportDoor;
     public bool isLightSwitch;
     public bool isAnimated;
+    public bool isClue;
 
     public AudioSource onUseAudioSource;
     public AudioClip[] onUseClipsToPlay;
     int AudioClipCounter;
 
     public Animator ObjectToAnimate;
-    public enum SpcifyAnimation { BedsideDrawer, WardobeDoor, DeskDoor };
+    public enum SpcifyAnimation { BedsideDrawer, WardobeDoor, DeskDoor, roomDoor };
     public SpcifyAnimation AnimType;
     public bool isCloased;
 
@@ -30,19 +31,21 @@ public class ObjectData : MonoBehaviour {
     public GameObject teleportTarget;
 
     public GameObject player;
+    public GameObject ClueManager;
 
     // Use this for initialization
     void Start ()
     {
         player = GameObject.Find("FPSController").GetComponent<Transform>().GetChild(1).gameObject;
+        ClueManager = GameObject.Find("Clue Manager Object");
     }
 
     public void use()
     {
-        if (isTeleportDoor == true)
-        {
-            GoHere();
-        }
+        //if (isTeleportDoor == true)
+        //{
+        //    GoHere();
+        //}
 
         if (isLightSwitch == true)
         {
@@ -73,7 +76,13 @@ public class ObjectData : MonoBehaviour {
                }
             }
 
-            playAudio();
+
+        if (isClue == true)
+            {
+
+            }
+
+        playAudio();
         }
 
         if (isAnimated == true)
@@ -135,6 +144,10 @@ public class ObjectData : MonoBehaviour {
 
                         isCloased = false;
                     }
+                    break;
+
+                case SpcifyAnimation.roomDoor:
+                    PassOpenCloseTrigger("Open");
                     break;
             }
         }
