@@ -1,25 +1,15 @@
 fileFormatVersion: 2
-guid: 802a2f3c8e059564db156595165ab6d7
-timeCreated: 1481502734
+guid: 98cb895f36572494ebb8a4101646613e
+timeCreated: 1485295342
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: pCube7
-    100004: pCylinder2
     400000: //RootNode
-    400002: pCube7
-    400004: pCylinder2
-    2300000: pCube7
-    2300002: pCylinder2
-    2300004: //RootNode
-    3300000: pCube7
-    3300002: pCylinder2
-    3300004: //RootNode
-    4300000: pCube7
-    4300002: pCylinder2
-    4300004: polySurface12
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Walls_2Doors
   materials:
     importMaterials: 1
     materialName: 0
