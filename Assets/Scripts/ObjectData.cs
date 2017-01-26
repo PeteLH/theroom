@@ -178,4 +178,9 @@ public class ObjectData : MonoBehaviour {
             }
         }
     }
+
+    public void forceCloseDoor()
+    {
+
+    }
 }
