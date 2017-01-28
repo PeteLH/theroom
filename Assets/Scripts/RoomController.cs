@@ -11,27 +11,24 @@ public class RoomController : MonoBehaviour
 
     public Transform[] spawnPoints;
     public GameObject[] roomPresets;
-    public List<GameObject> currentRooms = new List<GameObject>();
+    public List<Object> currentRooms = new List<Object>();
+
+    public int currentRoom;
 
     void Start()
     {
         for (var i = 0; i < spawnPoints.Length; i++)
         {
-            //currentRooms.Add();
-            //(Instantiate(roomPresets[0], spawnPoints[i].position, spawnPoints[i].rotation));
-            
+            Object thisObject = Instantiate(roomPresets[0], spawnPoints[i].position, spawnPoints[i].rotation);
+            currentRooms.Add(thisObject);
         }
     }
 
-    void OnCollisionEnter (Collision room1Trigger)
+    public void ClearRooms(string triggerHit)
     {
-
-    }
-
-    public void ClearRooms()
-    {
-
+        foreach (Object room in currentRooms)
+        {
+            Destroy(room);
+        }
     }
 }
-
-//Transform item in spawnPoints[]
