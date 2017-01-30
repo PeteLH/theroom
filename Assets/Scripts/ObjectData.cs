@@ -147,7 +147,18 @@ public class ObjectData : MonoBehaviour {
                     break;
 
                 case SpcifyAnimation.roomDoor:
-                    PassOpenCloseTrigger("Open");
+                    if (isCloased == false)
+                    {
+                        PassOpenCloseTrigger("Close");
+
+                        isCloased = true;
+                    }
+                    else if ((isCloased == true))
+                    {
+                        PassOpenCloseTrigger("Open");
+
+                        isCloased = false;
+                    }
                     break;
             }
         }
@@ -177,6 +188,21 @@ public class ObjectData : MonoBehaviour {
                 AudioClipCounter = 0;
             }
         }
+    }
+
+    public void playDoorOpen1()
+    {
+        onUseAudioSource.PlayOneShot(onUseClipsToPlay[0], 1f);
+    }
+
+    public void playDoorOpen2()
+    {
+        onUseAudioSource.PlayOneShot(onUseClipsToPlay[1], 1f);
+    }
+
+    public void playDoorClose()
+    {
+        onUseAudioSource.PlayOneShot(onUseClipsToPlay[2], 1f);
     }
 
     public void forceCloseDoor()
