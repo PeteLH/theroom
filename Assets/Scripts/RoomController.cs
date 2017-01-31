@@ -43,7 +43,7 @@ public class RoomController : MonoBehaviour
         }
     }
 
-    public void ClearRooms(string triggerHit) //clears every item
+    public void ClearRooms() //clears every item
     {
         foreach (Object room in currentRooms)
         {

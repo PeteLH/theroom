@@ -17,6 +17,7 @@ public class InteractableCheck : MonoBehaviour {
     public AudioClip objectNameUi;
     public AudioClip objectInfoUi;
     public AudioClip objectClearUi;
+    public AudioClip trochClick;
     public int roomNumber;
     public Image blackScreen;
 
@@ -25,6 +26,9 @@ public class InteractableCheck : MonoBehaviour {
 
     GameObject playerController;
     GameObject audioboy;
+
+    bool isFlashlightOn = false;
+    public Light flashlight;
 
     void Start()
     {
@@ -104,6 +108,23 @@ public class InteractableCheck : MonoBehaviour {
 
                 }
             }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (isFlashlightOn == true)
+            {
+                flashlight.enabled = false;
+                isFlashlightOn = false;
+                playerAudio.PlayOneShot(trochClick, 0.5f);
+            }
+            else if (isFlashlightOn == false)
+            {
+                flashlight.enabled = true;
+                isFlashlightOn = true;
+                playerAudio.PlayOneShot(trochClick, 0.5f);
+            }
+        }
+
         }
 
         

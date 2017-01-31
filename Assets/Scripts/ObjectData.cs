@@ -13,6 +13,7 @@ public class ObjectData : MonoBehaviour {
     public bool isLightSwitch;
     public bool isAnimated;
     public bool isClue;
+    public string roomNumber;
 
     public AudioSource onUseAudioSource;
     public AudioClip[] onUseClipsToPlay;
@@ -21,7 +22,7 @@ public class ObjectData : MonoBehaviour {
     public Animator ObjectToAnimate;
     public enum SpcifyAnimation { BedsideDrawer, WardobeDoor, DeskDoor, roomDoor };
     public SpcifyAnimation AnimType;
-    public bool isCloased;
+    public bool isClosed;
 
     public Light[] SwitchLights;
     public Renderer rendererToSwitchMat;
@@ -31,17 +32,24 @@ public class ObjectData : MonoBehaviour {
     public GameObject teleportTarget;
 
     public GameObject player;
-    public GameObject ClueManager;
+    public Cluemanager ClueManager;
 
     // Use this for initialization
     void Start ()
     {
         player = GameObject.Find("FPSController").GetComponent<Transform>().GetChild(1).gameObject;
-        ClueManager = GameObject.Find("Clue Manager Object");
+        ClueManager = GameObject.Find("Clue Manager Object").GetComponent<Cluemanager>();
     }
 
     public void use()
     {
+        if (isClue == true)
+        {
+            player.GetComponent<InteractableCheck>().objectDescription();
+            player.GetComponent<InteractableCheck>().objectLine.enabled = true;
+            ClueManager.FoundClue(roomNumber, gameObject.name);
+        }
+
         //if (isTeleportDoor == true)
         //{
         //    GoHere();
@@ -76,13 +84,8 @@ public class ObjectData : MonoBehaviour {
                }
             }
 
-
-        if (isClue == true)
-            {
-
-            }
-
         playAudio();
+
         }
 
         if (isAnimated == true)
@@ -100,64 +103,64 @@ public class ObjectData : MonoBehaviour {
             {
                 case SpcifyAnimation.BedsideDrawer:
 
-                    if (isCloased == false)
+                    if (isClosed == false)
                     {
                         PassOpenCloseTrigger("Close");
 
-                        isCloased = true;
+                        isClosed = true;
                     }
-                    else if ((isCloased == true))
+                    else if ((isClosed == true))
                     {
                         PassOpenCloseTrigger("Open");
 
-                        isCloased = false;
+                        isClosed = false;
                     }
                     break;
 
                 case SpcifyAnimation.WardobeDoor:
 
-                    if (isCloased == false)
+                    if (isClosed == false)
                     {
                         PassOpenCloseTrigger("Close");
 
-                        isCloased = true;
+                        isClosed = true;
                     }
-                    else if ((isCloased == true))
+                    else if ((isClosed == true))
                     {
                         PassOpenCloseTrigger("Open");
 
-                        isCloased = false;
+                        isClosed = false;
                     }
                     break;
 
                 case SpcifyAnimation.DeskDoor:
 
-                    if (isCloased == false)
+                    if (isClosed == false)
                     {
                         PassOpenCloseTrigger("Close");
 
-                        isCloased = true;
+                        isClosed = true;
                     }
-                    else if ((isCloased == true))
+                    else if ((isClosed == true))
                     {
                         PassOpenCloseTrigger("Open");
 
-                        isCloased = false;
+                        isClosed = false;
                     }
                     break;
 
                 case SpcifyAnimation.roomDoor:
-                    if (isCloased == false)
+                    if (isClosed == false)
                     {
                         PassOpenCloseTrigger("Close");
 
-                        isCloased = true;
+                        isClosed = true;
                     }
-                    else if ((isCloased == true))
+                    else if ((isClosed == true))
                     {
                         PassOpenCloseTrigger("Open");
 
-                        isCloased = false;
+                        isClosed = false;
                     }
                     break;
             }
