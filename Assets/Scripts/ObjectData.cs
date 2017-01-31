@@ -23,6 +23,7 @@ public class ObjectData : MonoBehaviour {
     public enum SpcifyAnimation { BedsideDrawer, WardobeDoor, DeskDoor, roomDoor };
     public SpcifyAnimation AnimType;
     public bool isClosed;
+    public bool isDoorLocked;
 
     public Light[] SwitchLights;
     public Renderer rendererToSwitchMat;
@@ -90,79 +91,76 @@ public class ObjectData : MonoBehaviour {
 
         if (isAnimated == true)
         {
-
-            // public gameobject itemToAnimate
-            // enum type of object to animate (drawer, door, lightswitch, etc.)
-            //
-            // depending on the enum set in the inspector...
-            // ...call the script that relates to this, for example "DrawerAnimationController" on the "itemToAnimate" gameobject.
-            // ^ might be abe to do the above in this script
-            // 
-
-            switch(AnimType)
+            if (isDoorLocked != true)
             {
-                case SpcifyAnimation.BedsideDrawer:
 
-                    if (isClosed == false)
-                    {
-                        PassOpenCloseTrigger("Close");
+                switch (AnimType)
+                {
+                    case SpcifyAnimation.BedsideDrawer:
 
-                        isClosed = true;
-                    }
-                    else if ((isClosed == true))
-                    {
-                        PassOpenCloseTrigger("Open");
+                        if (isClosed == false)
+                        {
+                            PassOpenCloseTrigger("Close");
 
-                        isClosed = false;
-                    }
-                    break;
+                            isClosed = true;
+                        }
+                        else if ((isClosed == true))
+                        {
+                            PassOpenCloseTrigger("Open");
 
-                case SpcifyAnimation.WardobeDoor:
+                            isClosed = false;
+                        }
+                        break;
 
-                    if (isClosed == false)
-                    {
-                        PassOpenCloseTrigger("Close");
+                    case SpcifyAnimation.WardobeDoor:
 
-                        isClosed = true;
-                    }
-                    else if ((isClosed == true))
-                    {
-                        PassOpenCloseTrigger("Open");
+                        if (isClosed == false)
+                        {
+                            PassOpenCloseTrigger("Close");
 
-                        isClosed = false;
-                    }
-                    break;
+                            isClosed = true;
+                        }
+                        else if ((isClosed == true))
+                        {
+                            PassOpenCloseTrigger("Open");
 
-                case SpcifyAnimation.DeskDoor:
+                            isClosed = false;
+                        }
+                        break;
 
-                    if (isClosed == false)
-                    {
-                        PassOpenCloseTrigger("Close");
+                    case SpcifyAnimation.DeskDoor:
 
-                        isClosed = true;
-                    }
-                    else if ((isClosed == true))
-                    {
-                        PassOpenCloseTrigger("Open");
+                        if (isClosed == false)
+                        {
+                            PassOpenCloseTrigger("Close");
 
-                        isClosed = false;
-                    }
-                    break;
+                            isClosed = true;
+                        }
+                        else if ((isClosed == true))
+                        {
+                            PassOpenCloseTrigger("Open");
 
-                case SpcifyAnimation.roomDoor:
-                    if (isClosed == false)
-                    {
-                        PassOpenCloseTrigger("Close");
+                            isClosed = false;
+                        }
+                        break;
 
-                        isClosed = true;
-                    }
-                    else if ((isClosed == true))
-                    {
-                        PassOpenCloseTrigger("Open");
+                    case SpcifyAnimation.roomDoor:
 
-                        isClosed = false;
-                    }
-                    break;
+                        if (isClosed == false)
+                        {
+                            PassOpenCloseTrigger("Close");
+
+                            isClosed = true;
+                        }
+                        else if ((isClosed == true))
+                        {
+                            PassOpenCloseTrigger("Open");
+
+                            isClosed = false;
+                        }
+
+                        break;
+                }
             }
         }
     }
@@ -210,6 +208,13 @@ public class ObjectData : MonoBehaviour {
 
     public void forceCloseDoor()
     {
+        PassOpenCloseTrigger("Close");
+        isClosed = true;
+    }
 
+    public void LockDoor()
+    {
+        isDoorLocked = true;
+        ObjectName = "Door - LOCKED";
     }
 }

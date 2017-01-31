@@ -10,7 +10,7 @@ public class TriggerCollision : MonoBehaviour {
     {
         if (col.gameObject.tag == "RoomTrigger")
         {
-            clueManager.GetComponent<Cluemanager>().CoridoorTrigger(gameObject.name);
+            clueManager.GetComponent<Cluemanager>().CoridoorTrigger(gameObject);
         }
     }
 }

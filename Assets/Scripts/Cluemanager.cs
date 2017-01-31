@@ -8,10 +8,19 @@ public class ClueSetup
     public int cluesRequired;
 }
 
+[System.Serializable]
+public class doorInfo
+{
+    public string name;
+    public GameObject door;
+}
+
 public class Cluemanager : MonoBehaviour
 {
     public RoomController roomcontroller;
     public ClueSetup[] ClueBuilder;
+    public doorInfo[] doorArray;
+    public GameObject triggerArray;
     public int noOfCluesCollected;
     public string lastRoom;
     public string lastClue;
@@ -23,11 +32,25 @@ public class Cluemanager : MonoBehaviour
         lastClue = clueFound;
     }
 
-    public void CoridoorTrigger (string triggerCollided)
+    bool roomOneIsDone = false;
+
+    public void CoridoorTrigger (GameObject triggerCollided)
     {
         if (lastRoom == "Room 1")
         {
+            if (roomOneIsDone == false)
+            {
+                doorArray[1].door.GetComponent<ObjectData>().forceCloseDoor();
+                doorArray[1].door.GetComponent<ObjectData>().LockDoor();
+                roomOneIsDone = true;
+            }
+
             roomcontroller.ClearRooms();
+        }
+
+        if (triggerCollided.gameObject.name == "Room1 Trigger")
+        {
+            
         }
     }
 }
