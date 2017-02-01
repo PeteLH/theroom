@@ -25,32 +25,31 @@ public class Cluemanager : MonoBehaviour
     public string lastRoom;
     public string lastClue;
 
+
+    bool roomOneIsDone = false;
+
     public void FoundClue (string currentRoom, string clueFound)
     {
         noOfCluesCollected++;
         lastRoom = currentRoom;
         lastClue = clueFound;
-    }
 
-    bool roomOneIsDone = false;
+        if (noOfCluesCollected == 2)
+        {
+            roomOneIsDone = true;
+        }
+    }
 
     public void CoridoorTrigger (GameObject triggerCollided)
     {
         if (lastRoom == "Room 1")
         {
-            if (roomOneIsDone == false)
+            if (roomOneIsDone == true)
             {
-                doorArray[1].door.GetComponent<ObjectData>().forceCloseDoor();
-                doorArray[1].door.GetComponent<ObjectData>().LockDoor();
-                roomOneIsDone = true;
+                doorArray[1].door.GetComponentInChildren< ObjectData>().forceCloseDoor();
+                doorArray[1].door.GetComponentInChildren<ObjectData>().LockDoor();
+                roomcontroller.ClearRooms();
             }
-
-            roomcontroller.ClearRooms();
-        }
-
-        if (triggerCollided.gameObject.name == "Room1 Trigger")
-        {
-            
         }
     }
 }

@@ -9,4 +9,19 @@ public class AnimateEventGo : MonoBehaviour {
     {
         objectDataItem.GetComponent<ObjectData>().playAudio();
     }
+
+    public void playDoorOpen1()
+    {
+        objectDataItem.GetComponent<ObjectData>().playDoorOpen1();
+    }
+
+    public void playDoorOpen2()
+    {
+        objectDataItem.GetComponent<ObjectData>().playDoorOpen2();
+    }
+
+    public void playDoorClose()
+    {
+        objectDataItem.GetComponent<ObjectData>().playDoorClose();
+    }
 }

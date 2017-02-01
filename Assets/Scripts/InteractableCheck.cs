@@ -9,6 +9,7 @@ public class InteractableCheck : MonoBehaviour {
     public Text ObjectLookingAtText;
     public Text ObjectClickOnText;
     public Image crosshair;
+    public Image mouseClick;
     public Image objectLine;
     RaycastHit hit; //mouse over
     RaycastHit hit1; //mouse click
@@ -29,6 +30,7 @@ public class InteractableCheck : MonoBehaviour {
 
     bool isFlashlightOn = false;
     public Light flashlight;
+    public bool hasCollectedFlashlight = false;
 
     void Start()
     {
@@ -50,7 +52,8 @@ public class InteractableCheck : MonoBehaviour {
 
             if (hit.transform.tag == "Interactable")
             {
-                crosshair.color = new Color32(0, 255, 1, 30);
+                crosshair.enabled = false;
+                mouseClick.enabled = true;
                 if (cache.collider != null & cache.collider != hit.collider)
                 {
                     TriggerOnceLookAtAudio = false;
@@ -62,7 +65,8 @@ public class InteractableCheck : MonoBehaviour {
         if (hit.collider == null || hit.collider.tag != "Interactable")
         {
             ClearText();
-            crosshair.color = new Color32(255, 255, 255, 30);
+            crosshair.enabled = true;
+            mouseClick.enabled = false;
         }
 
         if (hit1.collider != null)
@@ -111,17 +115,20 @@ public class InteractableCheck : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(1))
         {
-            if (isFlashlightOn == true)
+            if (hasCollectedFlashlight == true)
             {
-                flashlight.enabled = false;
-                isFlashlightOn = false;
-                playerAudio.PlayOneShot(trochClick, 0.5f);
-            }
-            else if (isFlashlightOn == false)
-            {
-                flashlight.enabled = true;
-                isFlashlightOn = true;
-                playerAudio.PlayOneShot(trochClick, 0.5f);
+                if (isFlashlightOn == true)
+                {
+                    flashlight.enabled = false;
+                    isFlashlightOn = false;
+                    playerAudio.PlayOneShot(trochClick, 0.5f);
+                }
+                else if (isFlashlightOn == false)
+                {
+                    flashlight.enabled = true;
+                    isFlashlightOn = true;
+                    playerAudio.PlayOneShot(trochClick, 0.5f);
+                }
             }
         }
 

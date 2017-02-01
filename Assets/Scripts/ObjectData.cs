@@ -13,6 +13,7 @@ public class ObjectData : MonoBehaviour {
     public bool isLightSwitch;
     public bool isAnimated;
     public bool isClue;
+    public bool isCollected;
     public string roomNumber;
 
     public AudioSource onUseAudioSource;
@@ -24,6 +25,8 @@ public class ObjectData : MonoBehaviour {
     public SpcifyAnimation AnimType;
     public bool isClosed;
     public bool isDoorLocked;
+    public Collider doorHandle1;
+    public Collider doorHandle2;
 
     public Light[] SwitchLights;
     public Renderer rendererToSwitchMat;
@@ -40,6 +43,11 @@ public class ObjectData : MonoBehaviour {
     {
         player = GameObject.Find("FPSController").GetComponent<Transform>().GetChild(1).gameObject;
         ClueManager = GameObject.Find("Clue Manager Object").GetComponent<Cluemanager>();
+
+        if (isDoorLocked == true)
+        {
+            LockDoor();
+        }
     }
 
     public void use()
@@ -49,6 +57,11 @@ public class ObjectData : MonoBehaviour {
             player.GetComponent<InteractableCheck>().objectDescription();
             player.GetComponent<InteractableCheck>().objectLine.enabled = true;
             ClueManager.FoundClue(roomNumber, gameObject.name);
+        }
+
+        if (isCollected == true)
+        {
+            detroyCurrentItem();
         }
 
         //if (isTeleportDoor == true)
@@ -215,6 +228,12 @@ public class ObjectData : MonoBehaviour {
     public void LockDoor()
     {
         isDoorLocked = true;
-        ObjectName = "Door - LOCKED";
+        ObjectName = "Locked";
+    }
+
+    public void detroyCurrentItem()
+    {
+        Destroy(gameObject);
+        player.GetComponent<InteractableCheck>().hasCollectedFlashlight = true;
     }
 }
