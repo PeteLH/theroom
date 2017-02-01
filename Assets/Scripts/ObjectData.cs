@@ -231,6 +231,12 @@ public class ObjectData : MonoBehaviour {
         ObjectName = "Locked";
     }
 
+    public void UnlockLockDoor()
+    {
+        isDoorLocked = false;
+        ObjectName = "Door";
+    }
+
     public void detroyCurrentItem()
     {
         Destroy(gameObject);

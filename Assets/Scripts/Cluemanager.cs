@@ -42,14 +42,40 @@ public class Cluemanager : MonoBehaviour
 
     public void CoridoorTrigger (GameObject triggerCollided)
     {
-        if (lastRoom == "Room 1")
+        if (lastRoom == "Room 1") ;
         {
+            if (triggerCollided.name == "Room1 Trigger")
+            {
+                doorArray[1].door.GetComponentInChildren<ObjectData>().forceCloseDoor();
+                doorArray[1].door.GetComponentInChildren<ObjectData>().LockDoor();
+                doorArray[7].door.GetComponentInChildren<ObjectData>().UnlockLockDoor();
+            }
+
             if (roomOneIsDone == true)
             {
-                doorArray[1].door.GetComponentInChildren< ObjectData>().forceCloseDoor();
-                doorArray[1].door.GetComponentInChildren<ObjectData>().LockDoor();
                 roomcontroller.ClearRooms();
             }
+        }
+
+        if (lastRoom == "Room 1")
+        {
+            doorArray[3].door.GetComponentInChildren<ObjectData>().forceCloseDoor();
+            doorArray[3].door.GetComponentInChildren<ObjectData>().LockDoor();
+            doorArray[1].door.GetComponentInChildren<ObjectData>().UnlockLockDoor();
+        }
+
+        if (lastRoom == "Room 1")
+        {
+            doorArray[5].door.GetComponentInChildren<ObjectData>().forceCloseDoor();
+            doorArray[5].door.GetComponentInChildren<ObjectData>().LockDoor();
+            doorArray[3].door.GetComponentInChildren<ObjectData>().UnlockLockDoor();
+        }
+
+        if (lastRoom == "Room 1")
+        {
+            doorArray[7].door.GetComponentInChildren<ObjectData>().forceCloseDoor();
+            doorArray[7].door.GetComponentInChildren<ObjectData>().LockDoor();
+            doorArray[5].door.GetComponentInChildren<ObjectData>().UnlockLockDoor();
         }
     }
 }
