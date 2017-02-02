@@ -4,8 +4,12 @@ using System.Collections;
 [System.Serializable]
 public class ClueSetup
 {
+    [Header("Clue name")]
     public string name;
-    public int cluesRequired;
+    [Header("Clues available")]
+    public bool isCollected;
+    [Header("Scene this appears in")]
+    public int sceneNumber;
 }
 
 [System.Serializable]
@@ -17,30 +21,46 @@ public class doorInfo
 
 public class Cluemanager : MonoBehaviour
 {
+    [Header ("Link to roomcontroller")]
     public RoomController roomcontroller;
+
+    [Header("Clue Builder")]
     public ClueSetup[] ClueBuilder;
     public doorInfo[] doorArray;
-    public GameObject triggerArray;
-    public int noOfCluesCollected;
-    public string lastRoom;
-    public string lastClue;
+    public int totalCluesCollected;
 
+    public int scene0Summary;
 
-    bool roomOneIsDone = false;
-
-    public void FoundClue (string currentRoom, string clueFound)
+    public void FoundClue (string currentScene, string clueFound)
     {
-        noOfCluesCollected++;
-        lastRoom = currentRoom;
-        lastClue = clueFound;
 
-        if (noOfCluesCollected == 2)
-        {
-            roomOneIsDone = true;
-        }
     }
 
     public void CoridoorTrigger (GameObject triggerCollided)
+    {
+        DoorOpenAndLock (triggerCollided);
+    }
+
+    void checkCluesInScene0() //check what clues have been collected in the initial scene
+    {
+        foreach (ClueSetup clue in ClueBuilder)
+        {
+            if (clue.sceneNumber == 0 & clue.isCollected == true)
+            {
+                if (clue.name == "Torch")
+                {
+                    scene0Summary = 1;
+                }
+
+                if (clue.name == "Note")
+                {
+                    scene0Summary = 2; //what if player doesn't collect anything? How do I handle that in a loop?
+                }
+            }
+        }
+    }
+
+    void DoorOpenAndLock(GameObject triggerCollided)
     {
         if (triggerCollided.name == "Room1 Trigger")
         {
@@ -76,14 +96,6 @@ public class Cluemanager : MonoBehaviour
             doorArray[6].door.GetComponentInChildren<ObjectData>().forceCloseDoor();
             doorArray[6].door.GetComponentInChildren<ObjectData>().UnlockLockDoor();
             doorArray[5].door.GetComponentInChildren<ObjectData>().UnlockLockDoor();
-        }
-
-        if (lastRoom == "Room 1")
-        {
-            if (roomOneIsDone == true)
-            {
-                roomcontroller.ClearRooms();
-            }
         }
     }
 }
