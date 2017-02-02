@@ -42,40 +42,48 @@ public class Cluemanager : MonoBehaviour
 
     public void CoridoorTrigger (GameObject triggerCollided)
     {
-        if (lastRoom == "Room 1") ;
+        if (triggerCollided.name == "Room1 Trigger")
         {
-            if (triggerCollided.name == "Room1 Trigger")
-            {
-                doorArray[1].door.GetComponentInChildren<ObjectData>().forceCloseDoor();
-                doorArray[1].door.GetComponentInChildren<ObjectData>().LockDoor();
-                doorArray[7].door.GetComponentInChildren<ObjectData>().UnlockLockDoor();
-            }
+            doorArray[1].door.GetComponentInChildren<ObjectData>().forceCloseDoor();
+            doorArray[1].door.GetComponentInChildren<ObjectData>().LockDoor();
+            doorArray[0].door.GetComponentInChildren<ObjectData>().forceCloseDoor();
+            doorArray[0].door.GetComponentInChildren<ObjectData>().UnlockLockDoor();
+            doorArray[7].door.GetComponentInChildren<ObjectData>().UnlockLockDoor();
+        }
 
+        if (triggerCollided.name == "Room2 Trigger")
+        {
+            doorArray[3].door.GetComponentInChildren<ObjectData>().forceCloseDoor();
+            doorArray[3].door.GetComponentInChildren<ObjectData>().LockDoor();
+            doorArray[2].door.GetComponentInChildren<ObjectData>().forceCloseDoor();
+            doorArray[2].door.GetComponentInChildren<ObjectData>().UnlockLockDoor();
+            doorArray[1].door.GetComponentInChildren<ObjectData>().UnlockLockDoor();
+        }
+
+        if (triggerCollided.name == "Room3 Trigger")
+        {
+            doorArray[5].door.GetComponentInChildren<ObjectData>().forceCloseDoor();
+            doorArray[5].door.GetComponentInChildren<ObjectData>().LockDoor();
+            doorArray[4].door.GetComponentInChildren<ObjectData>().forceCloseDoor();
+            doorArray[4].door.GetComponentInChildren<ObjectData>().UnlockLockDoor();
+            doorArray[3].door.GetComponentInChildren<ObjectData>().UnlockLockDoor();
+        }
+
+        if (triggerCollided.name == "Room4 Trigger")
+        {
+            doorArray[7].door.GetComponentInChildren<ObjectData>().forceCloseDoor();
+            doorArray[7].door.GetComponentInChildren<ObjectData>().LockDoor();
+            doorArray[6].door.GetComponentInChildren<ObjectData>().forceCloseDoor();
+            doorArray[6].door.GetComponentInChildren<ObjectData>().UnlockLockDoor();
+            doorArray[5].door.GetComponentInChildren<ObjectData>().UnlockLockDoor();
+        }
+
+        if (lastRoom == "Room 1")
+        {
             if (roomOneIsDone == true)
             {
                 roomcontroller.ClearRooms();
             }
-        }
-
-        if (lastRoom == "Room 1")
-        {
-            doorArray[3].door.GetComponentInChildren<ObjectData>().forceCloseDoor();
-            doorArray[3].door.GetComponentInChildren<ObjectData>().LockDoor();
-            doorArray[1].door.GetComponentInChildren<ObjectData>().UnlockLockDoor();
-        }
-
-        if (lastRoom == "Room 1")
-        {
-            doorArray[5].door.GetComponentInChildren<ObjectData>().forceCloseDoor();
-            doorArray[5].door.GetComponentInChildren<ObjectData>().LockDoor();
-            doorArray[3].door.GetComponentInChildren<ObjectData>().UnlockLockDoor();
-        }
-
-        if (lastRoom == "Room 1")
-        {
-            doorArray[7].door.GetComponentInChildren<ObjectData>().forceCloseDoor();
-            doorArray[7].door.GetComponentInChildren<ObjectData>().LockDoor();
-            doorArray[5].door.GetComponentInChildren<ObjectData>().UnlockLockDoor();
         }
     }
 }

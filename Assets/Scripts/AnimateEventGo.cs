@@ -24,4 +24,8 @@ public class AnimateEventGo : MonoBehaviour {
     {
         objectDataItem.GetComponent<ObjectData>().playDoorClose();
     }
+    public void ToggleIsAnimating()
+    {
+        objectDataItem.GetComponent<ObjectData>().toggleIsAnimating();
+    }
 }

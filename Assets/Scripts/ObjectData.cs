@@ -38,6 +38,8 @@ public class ObjectData : MonoBehaviour {
     public GameObject player;
     public Cluemanager ClueManager;
 
+    public bool isAnimating = false;
+
     // Use this for initialization
     void Start ()
     {
@@ -159,17 +161,20 @@ public class ObjectData : MonoBehaviour {
 
                     case SpcifyAnimation.roomDoor:
 
-                        if (isClosed == false)
+                        if (isAnimating == false)
                         {
-                            PassOpenCloseTrigger("Close");
+                            if (isClosed == false)
+                            {
+                                PassOpenCloseTrigger("Close");
 
-                            isClosed = true;
-                        }
-                        else if ((isClosed == true))
-                        {
-                            PassOpenCloseTrigger("Open");
+                                isClosed = true;
+                            }
+                            else if ((isClosed == true))
+                            {
+                                PassOpenCloseTrigger("Open");
 
-                            isClosed = false;
+                                isClosed = false;
+                            }
                         }
 
                         break;
@@ -221,8 +226,11 @@ public class ObjectData : MonoBehaviour {
 
     public void forceCloseDoor()
     {
-        PassOpenCloseTrigger("Close");
-        isClosed = true;
+        if (isClosed != true)
+        {
+            PassOpenCloseTrigger("Close");
+            isClosed = true;
+        }
     }
 
     public void LockDoor()
@@ -235,6 +243,18 @@ public class ObjectData : MonoBehaviour {
     {
         isDoorLocked = false;
         ObjectName = "Door";
+    }
+
+    public void toggleIsAnimating()
+    {
+        if (isAnimating == false)
+        {
+            isAnimating = true;
+        }
+        else if (isAnimating == true)
+        {
+            isAnimating = false;
+        }
     }
 
     public void detroyCurrentItem()
