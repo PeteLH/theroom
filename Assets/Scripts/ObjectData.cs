@@ -13,8 +13,8 @@ public class ObjectData : MonoBehaviour {
     public bool isLightSwitch;
     public bool isAnimated;
     public bool isClue;
-    public bool isCollected;
-    public string roomNumber;
+    public bool getsCollected;
+    public string ClueName;
 
     public AudioSource onUseAudioSource;
     public AudioClip[] onUseClipsToPlay;
@@ -36,7 +36,7 @@ public class ObjectData : MonoBehaviour {
     public GameObject teleportTarget;
 
     public GameObject player;
-    public Cluemanager ClueManager;
+    public GameObject ClueManager;
 
     public bool isAnimating = false;
 
@@ -44,7 +44,7 @@ public class ObjectData : MonoBehaviour {
     void Start ()
     {
         player = GameObject.Find("FPSController").GetComponent<Transform>().GetChild(1).gameObject;
-        ClueManager = GameObject.Find("Clue Manager Object").GetComponent<Cluemanager>();
+        ClueManager = GameObject.Find("Clue Manager Object");
 
         if (isDoorLocked == true)
         {
@@ -58,10 +58,10 @@ public class ObjectData : MonoBehaviour {
         {
             player.GetComponent<InteractableCheck>().objectDescription();
             player.GetComponent<InteractableCheck>().objectLine.enabled = true;
-            ClueManager.FoundClue(roomNumber, gameObject.name);
+            ClueManager.GetComponent<Cluemanager>().FoundClue (ClueName);
         }
 
-        if (isCollected == true)
+        if (getsCollected == true)
         {
             detroyCurrentItem();
         }

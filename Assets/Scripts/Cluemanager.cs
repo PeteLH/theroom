@@ -29,38 +29,75 @@ public class Cluemanager : MonoBehaviour
     public doorInfo[] doorArray;
     public int totalCluesCollected;
 
-    public int scene0Summary;
+    public bool hasTorch = false;
+    public bool hasNote= false;
 
-    public void FoundClue (string currentScene, string clueFound)
+     public void FoundClue (string clueFound) //fired from object data, when that object is flagged a clue
     {
-
-    }
-
-    public void CoridoorTrigger (GameObject triggerCollided)
-    {
-        DoorOpenAndLock (triggerCollided);
-    }
-
-    void checkCluesInScene0() //check what clues have been collected in the initial scene
-    {
-        foreach (ClueSetup clue in ClueBuilder)
+        switch (clueFound)
         {
-            if (clue.sceneNumber == 0 & clue.isCollected == true)
-            {
-                if (clue.name == "Torch")
-                {
-                    scene0Summary = 1;
-                }
+            case "Flashlight":
+                ClueBuilder[0].isCollected = true;
+                break;
 
-                if (clue.name == "Note")
-                {
-                    scene0Summary = 2; //what if player doesn't collect anything? How do I handle that in a loop?
-                }
-            }
+            case "Note":
+                ClueBuilder[1].isCollected = true;
+                break;
         }
     }
 
-    void DoorOpenAndLock(GameObject triggerCollided)
+    public void CoridoorTrigger (GameObject triggerCollided) //fire from Trigger Collision which is attached to the player
+    {
+        DoorOpenAndLock (triggerCollided); //locks the door behind the player and opens the previously locked door
+        roomcontroller.ClearRooms(); //clears all rooms of items and resets the current items list
+
+
+        // depending on which trigger is hit populate the next room 
+        if (triggerCollided.name == "Room1 Trigger")
+        {
+            Scene0SpawnModifier(1);
+        }
+        else if (triggerCollided.name == "Room2 Trigger")
+        {
+            Scene0SpawnModifier(2);
+        }
+        else if (triggerCollided.name == "Room3 Trigger")
+        {
+            Scene0SpawnModifier(3);
+        }
+        else if (triggerCollided.name == "Room4 Trigger")
+        {
+            Scene0SpawnModifier(0);
+        }
+    }
+    // 0 - Torch
+    // 1 - Note
+    void Scene0SpawnModifier(int room) //spawn scene 1 items depending on what clues have been found
+    {
+        if (ClueBuilder[0].isCollected == false & ClueBuilder[1].isCollected == false)
+        {
+            roomcontroller.ItemSpawner(room, 0);
+            roomcontroller.ItemSpawner(room, 1);
+            roomcontroller.ItemSpawner(room, 4);
+        }
+        else if (ClueBuilder[0].isCollected == true & ClueBuilder[1].isCollected == false)
+        {
+            roomcontroller.ItemSpawner(room, 0);
+            roomcontroller.ItemSpawner(room, 1);
+        }
+        else if (ClueBuilder[0].isCollected == false & ClueBuilder[1].isCollected == true)
+        {
+            roomcontroller.ItemSpawner(room, 5);
+            roomcontroller.ItemSpawner(room, 1);
+            roomcontroller.ItemSpawner(room, 4);
+        }
+        else if (ClueBuilder[0].isCollected == true & ClueBuilder[1].isCollected == true)
+        {
+
+        }
+    }
+
+    void DoorOpenAndLock(GameObject triggerCollided) // door lock settings after each room
     {
         if (triggerCollided.name == "Room1 Trigger")
         {
