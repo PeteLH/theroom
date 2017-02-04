@@ -93,7 +93,7 @@ public class Cluemanager : MonoBehaviour
         }
         else if (ClueBuilder[0].isCollected == true & ClueBuilder[1].isCollected == true)
         {
-
+            roomcontroller.ItemSpawner(room, 7);
         }
     }
 
