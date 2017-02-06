@@ -30,6 +30,7 @@ public class RoomController : MonoBehaviour
         ItemSpawner(0, 0);
         ItemSpawner(0, 1);
         ItemSpawner(0, 4);
+        ItemSpawner(0, 8);
     }
 
     public void spawnInEveryRoom(int itemFromSets)

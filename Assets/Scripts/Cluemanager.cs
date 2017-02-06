@@ -79,17 +79,20 @@ public class Cluemanager : MonoBehaviour
             roomcontroller.ItemSpawner(room, 0);
             roomcontroller.ItemSpawner(room, 1);
             roomcontroller.ItemSpawner(room, 4);
+            roomcontroller.ItemSpawner(room, 8);
         }
         else if (ClueBuilder[0].isCollected == true & ClueBuilder[1].isCollected == false)
         {
             roomcontroller.ItemSpawner(room, 0);
             roomcontroller.ItemSpawner(room, 1);
+            roomcontroller.ItemSpawner(room, 8);
         }
         else if (ClueBuilder[0].isCollected == false & ClueBuilder[1].isCollected == true)
         {
             roomcontroller.ItemSpawner(room, 5);
             roomcontroller.ItemSpawner(room, 1);
             roomcontroller.ItemSpawner(room, 4);
+            roomcontroller.ItemSpawner(room, 8);
         }
         else if (ClueBuilder[0].isCollected == true & ClueBuilder[1].isCollected == true)
         {
