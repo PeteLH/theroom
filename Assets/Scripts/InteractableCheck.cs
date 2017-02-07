@@ -132,9 +132,7 @@ public class InteractableCheck : MonoBehaviour {
             }
         }
 
-        }
-
-        
+        }        
 
     public void ObjectsName()
     {
