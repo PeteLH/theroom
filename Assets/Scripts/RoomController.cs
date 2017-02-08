@@ -11,6 +11,12 @@ public class ItsemSets
     public Quaternion spawnRot = Quaternion.Euler(0, 0, 0);
 }
 
+[System.Serializable]
+public class RoomItemCombinations
+{
+    public string name;
+    public int[] ItemSetCombo;
+}
 
 public class RoomController : MonoBehaviour
 {
@@ -20,29 +26,28 @@ public class RoomController : MonoBehaviour
     public BoxCollider room4Trigger;
 
     public Transform[] spawnPoints; // array of the spawn points, 0 - 3
-    public ItsemSets[] roomPresets; // array of the class above listing each spawnable item set and it's spawn location info
+    public ItsemSets[] spawnItems; // array of the class above listing each spawnable item set and it's spawn location info
+    public RoomItemCombinations[] roomSets; //array of ints that represent various item sets
     public List<Object> currentRooms = new List<Object>(); // A dynamic list that keeps track of what item sets we have spawned in. Can be used to mass clear 
 
     public int currentRoom;
 
     void Start()
     {
-        ItemSpawner(0, 0);
-        ItemSpawner(0, 1);
-        ItemSpawner(0, 4);
-        ItemSpawner(0, 8);
-        ItemSpawner(0, 2);
-        ItemSpawner(0, 9);
+        for (var i = 0; i < roomSets[0].ItemSetCombo.Length; i++)
+        {
+            ItemSpawner(0, i);
+        }
     }
 
     public void spawnInEveryRoom(int itemFromSets)
     {
         for (var i = 0; i < spawnPoints.Length; i++)
         {
-            var NewItem = GameObject.Instantiate(roomPresets[itemFromSets].itemToSpawn);
+            var NewItem = GameObject.Instantiate(spawnItems[itemFromSets].itemToSpawn);
             NewItem.transform.parent = GameObject.Find(spawnPoints[i].name).transform;
-            NewItem.transform.localPosition = roomPresets[itemFromSets].spawnPos;
-            NewItem.transform.localRotation = roomPresets[itemFromSets].spawnRot;
+            NewItem.transform.localPosition = spawnItems[itemFromSets].spawnPos;
+            NewItem.transform.localRotation = spawnItems[itemFromSets].spawnRot;
             currentRooms.Add(NewItem);
         }
     }
@@ -59,10 +64,10 @@ public class RoomController : MonoBehaviour
 
     public void ItemSpawner(int Room, int itemFromSets)
     {
-        var NewItem = GameObject.Instantiate(roomPresets[itemFromSets].itemToSpawn);
+        var NewItem = GameObject.Instantiate(spawnItems[itemFromSets].itemToSpawn);
         NewItem.transform.parent = GameObject.Find(spawnPoints[Room].name).transform;
-        NewItem.transform.localPosition = roomPresets[itemFromSets].spawnPos;
-        NewItem.transform.localRotation = roomPresets[itemFromSets].spawnRot;
+        NewItem.transform.localPosition = spawnItems[itemFromSets].spawnPos;
+        NewItem.transform.localRotation = spawnItems[itemFromSets].spawnRot;
         currentRooms.Add(NewItem);
     }
 }

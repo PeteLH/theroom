@@ -76,12 +76,10 @@ public class Cluemanager : MonoBehaviour
     {
         if (ClueBuilder[0].isCollected == false & ClueBuilder[1].isCollected == false)
         {
-            roomcontroller.ItemSpawner(room, 0);
-            roomcontroller.ItemSpawner(room, 1);
-            roomcontroller.ItemSpawner(room, 4);
-            roomcontroller.ItemSpawner(room, 8);
-            roomcontroller.ItemSpawner(room, 2);
-            roomcontroller.ItemSpawner(room, 9);
+            for (var i = 0; i < roomcontroller.roomSets[0].ItemSetCombo.Length; i++)
+            {
+                roomcontroller.ItemSpawner(room, i);
+            }
         }
         else if (ClueBuilder[0].isCollected == true & ClueBuilder[1].isCollected == false)
         {
