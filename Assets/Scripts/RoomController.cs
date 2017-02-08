@@ -36,7 +36,7 @@ public class RoomController : MonoBehaviour
     {
         for (var i = 0; i < roomSets[0].ItemSetCombo.Length; i++)
         {
-            ItemSpawner(0, i);
+            ItemSpawner(0, roomSets[0].ItemSetCombo[i]);
         }
     }
 
