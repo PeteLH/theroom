@@ -8,7 +8,9 @@ public class ItsemSets
     public string name;
     public GameObject itemToSpawn;
     public Vector3 spawnPos;
-    public Quaternion spawnRot = Quaternion.Euler(0, 0, 0);
+    public Vector3 spawnrotation;
+    [HideInInspector]
+    public Quaternion spawnRot = Quaternion.Euler (0,0,0);
 }
 
 [System.Serializable]
@@ -45,9 +47,9 @@ public class RoomController : MonoBehaviour
         for (var i = 0; i < spawnPoints.Length; i++)
         {
             var NewItem = GameObject.Instantiate(spawnItems[itemFromSets].itemToSpawn);
-            //NewItem.transform.parent = GameObject.Find(spawnPoints[i].name).transform;
-            //NewItem.transform.localPosition = spawnItems[itemFromSets].spawnPos;
-            //NewItem.transform.localRotation = spawnItems[itemFromSets].spawnRot;
+            NewItem.transform.parent = GameObject.Find(spawnPoints[i].name).transform;
+            NewItem.transform.localPosition = spawnItems[itemFromSets].spawnPos;
+            NewItem.transform.localEulerAngles = spawnItems[itemFromSets].spawnrotation;
             currentRooms.Add(NewItem);
         }
     }
@@ -65,9 +67,9 @@ public class RoomController : MonoBehaviour
     public void ItemSpawner(int Room, int itemFromSets)
     {
         var NewItem = GameObject.Instantiate(spawnItems[itemFromSets].itemToSpawn);
-        //NewItem.transform.parent = GameObject.Find(spawnPoints[Room].name).transform;
-        //NewItem.transform.localPosition = spawnItems[itemFromSets].spawnPos;
-        //NewItem.transform.localRotation = spawnItems[itemFromSets].spawnRot;
+        NewItem.transform.parent = GameObject.Find(spawnPoints[Room].name).transform;
+        NewItem.transform.localPosition = spawnItems[itemFromSets].spawnPos;
+        NewItem.transform.localEulerAngles = spawnItems[itemFromSets].spawnrotation;
         currentRooms.Add(NewItem);
     }
 }
