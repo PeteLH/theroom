@@ -14,10 +14,19 @@ public class ItsemSets
 }
 
 [System.Serializable]
+public class itemToSpawn
+{
+    public string name;
+    public int item;
+    public Vector3 spawnPos;
+    public Vector3 spawnrotation;
+}
+
+[System.Serializable]
 public class RoomItemCombinations
 {
     public string name;
-    public int[] ItemSetCombo;
+    public itemToSpawn[] ItemSetCombo;
 }
 
 public class RoomController : MonoBehaviour
@@ -38,7 +47,7 @@ public class RoomController : MonoBehaviour
     {
         for (var i = 0; i < roomSets[0].ItemSetCombo.Length; i++)
         {
-            ItemSpawner(0, roomSets[0].ItemSetCombo[i]);
+            ItemSpawner(0, roomSets[0].ItemSetCombo[i].item);
         }
     }
 
@@ -68,8 +77,10 @@ public class RoomController : MonoBehaviour
     {
         var NewItem = GameObject.Instantiate(spawnItems[itemFromSets].itemToSpawn);
         NewItem.transform.parent = GameObject.Find(spawnPoints[Room].name).transform;
-        NewItem.transform.localPosition = spawnItems[itemFromSets].spawnPos;
-        NewItem.transform.localEulerAngles = spawnItems[itemFromSets].spawnrotation;
+        //NewItem.transform.localPosition = spawnItems[itemFromSets].spawnPos;
+        NewItem.transform.localPosition = roomSets[Room].ItemSetCombo[itemFromSets].spawnPos;
+        //NewItem.transform.localEulerAngles = spawnItems[itemFromSets].spawnrotation;
+        NewItem.transform.localPosition = roomSets[Room].ItemSetCombo[itemFromSets].spawnrotation;
         currentRooms.Add(NewItem);
     }
 }
