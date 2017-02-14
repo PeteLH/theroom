@@ -17,7 +17,7 @@ public class ItsemSets
 public class itemToSpawn
 {
     public string name;
-    public int item;
+    public GameObject item;
     public Vector3 spawnPos;
     public Vector3 spawnrotation;
 }
@@ -37,7 +37,7 @@ public class RoomController : MonoBehaviour
     public BoxCollider room4Trigger;
 
     public Transform[] spawnPoints; // array of the spawn points, 0 - 3
-    public ItsemSets[] spawnItems; // array of the class above listing each spawnable item set and it's spawn location info
+    //public ItsemSets[] spawnItems; // array of the class above listing each spawnable item set and it's spawn location info
     public RoomItemCombinations[] roomSets; //array of ints that represent various item sets
     public List<Object> currentRooms = new List<Object>(); // A dynamic list that keeps track of what item sets we have spawned in. Can be used to mass clear 
 
@@ -47,20 +47,20 @@ public class RoomController : MonoBehaviour
     {
         for (var i = 0; i < roomSets[0].ItemSetCombo.Length; i++)
         {
-            ItemSpawner(0, roomSets[0].ItemSetCombo[i].item);
+            ItemSpawner(0, i);
         }
     }
 
     public void spawnInEveryRoom(int itemFromSets)
     {
-        for (var i = 0; i < spawnPoints.Length; i++)
-        {
-            var NewItem = GameObject.Instantiate(spawnItems[itemFromSets].itemToSpawn);
-            NewItem.transform.parent = GameObject.Find(spawnPoints[i].name).transform;
-            NewItem.transform.localPosition = spawnItems[itemFromSets].spawnPos;
-            NewItem.transform.localEulerAngles = spawnItems[itemFromSets].spawnrotation;
-            currentRooms.Add(NewItem);
-        }
+        //for (var i = 0; i < spawnPoints.Length; i++)
+        //{
+        //    var NewItem = GameObject.Instantiate(spawnItems[itemFromSets].itemToSpawn);
+        //    NewItem.transform.parent = GameObject.Find(spawnPoints[i].name).transform;
+        //    NewItem.transform.localPosition = spawnItems[itemFromSets].spawnPos;
+        //    NewItem.transform.localEulerAngles = spawnItems[itemFromSets].spawnrotation;
+        //    currentRooms.Add(NewItem);
+        //}
     }
 
     public void ClearRooms() //clears every item
@@ -75,12 +75,14 @@ public class RoomController : MonoBehaviour
 
     public void ItemSpawner(int Room, int itemFromSets)
     {
-        var NewItem = GameObject.Instantiate(spawnItems[itemFromSets].itemToSpawn);
+        var NewItem = GameObject.Instantiate(roomSets[Room].ItemSetCombo[itemFromSets].item);
         NewItem.transform.parent = GameObject.Find(spawnPoints[Room].name).transform;
-        //NewItem.transform.localPosition = spawnItems[itemFromSets].spawnPos;
+
         NewItem.transform.localPosition = roomSets[Room].ItemSetCombo[itemFromSets].spawnPos;
-        //NewItem.transform.localEulerAngles = spawnItems[itemFromSets].spawnrotation;
-        NewItem.transform.localPosition = roomSets[Room].ItemSetCombo[itemFromSets].spawnrotation;
+        NewItem.transform.eulerAngles = roomSets[Room].ItemSetCombo[itemFromSets].spawnrotation;
+
         currentRooms.Add(NewItem);
+        //Debug.Log("room number " + Room);
+        //Debug.Log("item number " + itemFromSets);
     }
 }

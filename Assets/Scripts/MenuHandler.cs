@@ -11,8 +11,10 @@ public class MenuHandler : MonoBehaviour {
     public Canvas MainMenu;
     public GameObject player;
 
-	// Use this for initialization
-	void Start ()
+    CursorLockMode inGame;
+
+    // Use this for initialization
+    void Start ()
     {
         fpsCam = GameObject.Find("FPSController").GetComponentInChildren < Camera > ();
         menuCam = GameObject.Find("MainMenuCam").GetComponentInChildren<Camera>();
@@ -35,6 +37,8 @@ public class MenuHandler : MonoBehaviour {
 
         HUD.enabled = true;
         MainMenu.enabled = false;
+
+        Cursor.visible = (CursorLockMode.Locked == inGame);
 
         player.GetComponent<FirstPersonController>().enabled = true;
     }
