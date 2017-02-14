@@ -78,28 +78,28 @@ public class Cluemanager : MonoBehaviour
         {
             for (var i = 0; i < roomcontroller.roomSets[0].ItemSetCombo.Length; i++)
             {
-                roomcontroller.ItemSpawner(room, i);
+                roomcontroller.ItemSpawner(room, 0, i);
             }
         }
         else if (ClueBuilder[0].isCollected == true & ClueBuilder[1].isCollected == false)
         {
             for (var i = 0; i < roomcontroller.roomSets[1].ItemSetCombo.Length; i++)
             {
-                roomcontroller.ItemSpawner(room, i);
+                roomcontroller.ItemSpawner(room, 1, i);
             }
         }
         else if (ClueBuilder[0].isCollected == false & ClueBuilder[1].isCollected == true)
         {
             for (var i = 0; i < roomcontroller.roomSets[2].ItemSetCombo.Length; i++)
             {
-                roomcontroller.ItemSpawner(room, i);
+                roomcontroller.ItemSpawner(room, 2, i);
             }
         }
         else if (ClueBuilder[0].isCollected == true & ClueBuilder[1].isCollected == true)
         {
             for (var i = 0; i < roomcontroller.roomSets[3].ItemSetCombo.Length; i++)
             {
-                roomcontroller.ItemSpawner(room, i);
+                roomcontroller.ItemSpawner(room, 3, i);
             }
         }
     }
