@@ -45,9 +45,9 @@ public class RoomController : MonoBehaviour
 
     void Start()
     {
-        for (var i = 0; i < roomSets[0].ItemSetCombo.Length; i++)
+        for (var i = 0; i < roomSets[0].ItemSetCombo.Length; i++) //for each item in room sets no. 0 > itemsetcombo array
         {
-            ItemSpawner(0, i);
+            ItemSpawner(0, i); //trigger this function with the ints 0 & i, i being the iterator from above
         }
     }
 
@@ -73,16 +73,17 @@ public class RoomController : MonoBehaviour
         currentRooms.Clear();
     }
 
-    public void ItemSpawner(int Room, int itemFromSets)
+    public void ItemSpawner(int Room, int itemFromSets) 
     {
-        var NewItem = GameObject.Instantiate(roomSets[Room].ItemSetCombo[itemFromSets].item);
+        var NewItem = GameObject.Instantiate(roomSets[Room].ItemSetCombo[itemFromSets].item); // spawn the object from room sets (room no) item set combo (item from ets no) . item. 
         NewItem.transform.parent = GameObject.Find(spawnPoints[Room].name).transform;
 
         NewItem.transform.localPosition = roomSets[Room].ItemSetCombo[itemFromSets].spawnPos;
-        NewItem.transform.eulerAngles = roomSets[Room].ItemSetCombo[itemFromSets].spawnrotation;
+        NewItem.transform.localRotation = Quaternion.Euler(roomSets[Room].ItemSetCombo[itemFromSets].spawnrotation);
 
         currentRooms.Add(NewItem);
         //Debug.Log("room number " + Room);
         //Debug.Log("item number " + itemFromSets);
+        Debug.Log(Room + " is the room items will spawn in, " + roomSets[Room] + " the room set to spawn, ");
     }
 }
