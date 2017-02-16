@@ -11,8 +11,6 @@ public class MenuHandler : MonoBehaviour {
     public Canvas MainMenu;
     public GameObject player;
 
-    CursorLockMode inGame;
-
     // Use this for initialization
     void Start ()
     {
@@ -38,7 +36,7 @@ public class MenuHandler : MonoBehaviour {
         HUD.enabled = true;
         MainMenu.enabled = false;
 
-        Cursor.visible = (CursorLockMode.Locked == inGame);
+        Cursor.lockState = CursorLockMode.Locked;
 
         player.GetComponent<FirstPersonController>().enabled = true;
     }
