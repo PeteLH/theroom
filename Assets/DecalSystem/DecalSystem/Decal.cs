@@ -11,6 +11,11 @@ public class Decal : MonoBehaviour {
 	public float maxAngle = 90.0f;
 	public float pushDistance = 0.009f;
 	public LayerMask affectedLayers = -1;
+
+    void Start()
+    {
+        
+    }
 	
 	void OnDrawGizmosSelected() {
 		Gizmos.matrix = transform.localToWorldMatrix;
@@ -46,6 +51,4 @@ public class Decal : MonoBehaviour {
 
 		return new Bounds(transform.position, max-min);
 	}
-
-
 }
