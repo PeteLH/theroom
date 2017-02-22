@@ -38,52 +38,73 @@ public class RoomController : MonoBehaviour
 
     public Transform[] spawnPoints; // array of the spawn points, 0 - 3
     //public ItsemSets[] spawnItems; // array of the class above listing each spawnable item set and it's spawn location info
-    public RoomItemCombinations[] roomSets; //array of ints that represent various item sets
-    public List<Object> currentRooms = new List<Object>(); // A dynamic list that keeps track of what item sets we have spawned in. Can be used to mass clear 
+    //public RoomItemCombinations[] roomSets; //array of ints that represent various item sets
+    public GameObject[] roomSets2; //new version of above
+    public Vector3 resetRoomPos;
+    //public List<Object> currentRooms = new List<Object>(); // A dynamic list that keeps track of what item sets we have spawned in. Can be used to mass clear 
 
     public int currentRoom;
 
     void Start()
     {
-        for (var i = 0; i < roomSets[0].ItemSetCombo.Length; i++) //for each item in room sets no. 0 > itemsetcombo array
-        {
-            ItemSpawner(0, 0, i); //trigger this function with the ints 0 & i, i being the iterator from above
-        }
-    }
+        RoomSpawner(0, 0);
 
-    public void spawnInEveryRoom(int itemFromSets)
-    {
-        //for (var i = 0; i < spawnPoints.Length; i++)
+        //for (var i = 0; i < roomSets[0].ItemSetCombo.Length; i++) //for each item in room sets no. 0 > itemsetcombo array
         //{
-        //    var NewItem = GameObject.Instantiate(spawnItems[itemFromSets].itemToSpawn);
-        //    NewItem.transform.parent = GameObject.Find(spawnPoints[i].name).transform;
-        //    NewItem.transform.localPosition = spawnItems[itemFromSets].spawnPos;
-        //    NewItem.transform.localEulerAngles = spawnItems[itemFromSets].spawnrotation;
-        //    currentRooms.Add(NewItem);
+        //     //trigger this function with the ints 0 & i, i being the iterator from above
         //}
     }
 
-    public void ClearRooms() //clears every item
-    {
-        foreach (Object room in currentRooms)
-        {
-            Destroy(room);
-        }
+    //public void spawnInEveryRoom(int itemFromSets)
+    //{
+    //    //for (var i = 0; i < spawnPoints.Length; i++)
+    //    //{
+    //    //    var NewItem = GameObject.Instantiate(spawnItems[itemFromSets].itemToSpawn);
+    //    //    NewItem.transform.parent = GameObject.Find(spawnPoints[i].name).transform;
+    //    //    NewItem.transform.localPosition = spawnItems[itemFromSets].spawnPos;
+    //    //    NewItem.transform.localEulerAngles = spawnItems[itemFromSets].spawnrotation;
+    //    //    currentRooms.Add(NewItem);
+    //    //}
+    //}
 
-        currentRooms.Clear();
+    //public void ClearRooms() //clears every item
+    //{
+    //    foreach (Object room in currentRooms)
+    //    {
+    //        Destroy(room);
+    //    }
+
+    //    currentRooms.Clear();
+    //}
+
+    //public void ItemSpawner(int Room, int setToSpawn, int itemFromSets) 
+    //{
+    //    var NewItem = GameObject.Instantiate(roomSets[setToSpawn].ItemSetCombo[itemFromSets].item); // spawn the object from room sets (room no) item set combo (item from ets no) . item. 
+    //    NewItem.transform.parent = GameObject.Find(spawnPoints[Room].name).transform;
+
+    //    NewItem.transform.localPosition = roomSets[setToSpawn].ItemSetCombo[itemFromSets].spawnPos;
+    //    NewItem.transform.localRotation = Quaternion.Euler(roomSets[setToSpawn].ItemSetCombo[itemFromSets].spawnrotation);
+
+    //    currentRooms.Add(NewItem);
+    //    //Debug.Log("room number " + Room);
+    //    //Debug.Log("item number " + itemFromSets);
+    //    Debug.Log(Room + " is the room items will spawn in. " + roomSets[setToSpawn].name + " the room set to spawn. ");
+    //}
+
+    public void RoomSpawner(int room, int setToSpawn)
+    {
+        roomSets2[setToSpawn].transform.position = spawnPoints[room].position;
+        roomSets2[setToSpawn].transform.rotation = spawnPoints[room].rotation;
+        currentRoom = setToSpawn;
     }
 
-    public void ItemSpawner(int Room, int setToSpawn, int itemFromSets) 
+    public void RoomReset(int setToReset)
     {
-        var NewItem = GameObject.Instantiate(roomSets[setToSpawn].ItemSetCombo[itemFromSets].item); // spawn the object from room sets (room no) item set combo (item from ets no) . item. 
-        NewItem.transform.parent = GameObject.Find(spawnPoints[Room].name).transform;
+        roomSets2[setToReset].transform.position = resetRoomPos;
+    }
 
-        NewItem.transform.localPosition = roomSets[setToSpawn].ItemSetCombo[itemFromSets].spawnPos;
-        NewItem.transform.localRotation = Quaternion.Euler(roomSets[setToSpawn].ItemSetCombo[itemFromSets].spawnrotation);
-
-        currentRooms.Add(NewItem);
-        //Debug.Log("room number " + Room);
-        //Debug.Log("item number " + itemFromSets);
-        Debug.Log(Room + " is the room items will spawn in. " + roomSets[setToSpawn].name + " the room set to spawn. ");
+    public void RoomClear()
+    {
+        roomSets2[currentRoom].transform.position = resetRoomPos;
     }
 }

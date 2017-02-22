@@ -43,13 +43,20 @@ public class Cluemanager : MonoBehaviour
             case "Note":
                 ClueBuilder[1].isCollected = true;
                 break;
+            case "DeadBody":
+                ClueBuilder[2].isCollected = true;
+                break;
+
+            case "UniWelcomePack":
+                ClueBuilder[3].isCollected = true;
+                break;
         }
     }
 
     public void CoridoorTrigger (GameObject triggerCollided) //fire from Trigger Collision which is attached to the player
     {
         DoorOpenAndLock (triggerCollided); //locks the door behind the player and opens the previously locked door
-        roomcontroller.ClearRooms(); //clears all rooms of items and resets the current items list
+        roomcontroller.RoomClear(); //clears all rooms of items and resets the current items list
 
 
         // depending on which trigger is hit populate the next room 
@@ -74,33 +81,25 @@ public class Cluemanager : MonoBehaviour
     // 1 - Note
     void Scene0SpawnModifier(int room) //spawn scene 1 items depending on what clues have been found
     {
-        if (ClueBuilder[0].isCollected == false & ClueBuilder[1].isCollected == false)
+        if (ClueBuilder[0].isCollected == false & ClueBuilder[1].isCollected == false) //Need to fix this, if first 2 clues are collected hw do we trigger someting different when 3rd and 4th are too? 
         {
-            for (var i = 0; i < roomcontroller.roomSets[0].ItemSetCombo.Length; i++)
-            {
-                roomcontroller.ItemSpawner(room, 0, i);
-            }
+            roomcontroller.RoomSpawner(room, 0);
         }
         else if (ClueBuilder[0].isCollected == true & ClueBuilder[1].isCollected == false)
         {
-            for (var i = 0; i < roomcontroller.roomSets[1].ItemSetCombo.Length; i++)
-            {
-                roomcontroller.ItemSpawner(room, 1, i);
-            }
+            roomcontroller.RoomSpawner(room, 1);
         }
         else if (ClueBuilder[0].isCollected == false & ClueBuilder[1].isCollected == true)
         {
-            for (var i = 0; i < roomcontroller.roomSets[2].ItemSetCombo.Length; i++)
-            {
-                roomcontroller.ItemSpawner(room, 2, i);
-            }
+            roomcontroller.RoomSpawner(room, 2);
         }
         else if (ClueBuilder[0].isCollected == true & ClueBuilder[1].isCollected == true)
         {
-            for (var i = 0; i < roomcontroller.roomSets[3].ItemSetCombo.Length; i++)
-            {
-                roomcontroller.ItemSpawner(room, 3, i);
-            }
+            roomcontroller.RoomSpawner(room, 3);
+        }
+        else if (ClueBuilder[2].isCollected == true & ClueBuilder[3].isCollected == true)
+        {
+            roomcontroller.RoomSpawner(room, 4);
         }
     }
 
