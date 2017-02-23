@@ -14,6 +14,7 @@ public class ObjectData : MonoBehaviour {
     public bool isAnimated;
     public bool isClue;
     public bool getsCollected;
+    public bool isBattery;
     public string ClueName;
 
     public AudioSource onUseAudioSource;
@@ -63,7 +64,12 @@ public class ObjectData : MonoBehaviour {
 
         if (getsCollected == true)
         {
-            detroyCurrentItem();
+            detroyCurrentItem(ClueName);
+        }
+
+        if (isBattery == true)
+        {
+            player.GetComponent<InteractableCheck>().torchPower = player.GetComponent<InteractableCheck>().torchPower + 50;
         }
 
         //if (isTeleportDoor == true)
@@ -257,9 +263,14 @@ public class ObjectData : MonoBehaviour {
         }
     }
 
-    public void detroyCurrentItem()
+    public void detroyCurrentItem(string clueName)
     {
         Destroy(gameObject);
-        player.GetComponent<InteractableCheck>().hasCollectedFlashlight = true;
+
+        if(clueName == "Flashlight")
+        {
+            player.GetComponent<InteractableCheck>().hasCollectedFlashlight = true;
+            player.GetComponent<InteractableCheck>().EnableFlashlightHud();
+        }
     }
 }

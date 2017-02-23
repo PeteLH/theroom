@@ -21,6 +21,8 @@ public class InteractableCheck : MonoBehaviour {
     public AudioClip trochClick;
     public int roomNumber;
     public Image blackScreen;
+    public GameObject TorchHUD;
+    public GameObject batteryAmmount; 
 
     bool TriggerOnceLookAtAudio = false;
     bool triggeroncestopLooingat = true;
@@ -32,12 +34,15 @@ public class InteractableCheck : MonoBehaviour {
     public Light flashlight;
     public bool hasCollectedFlashlight = false;
 
+    public float torchPower = 100;
+
     void Start()
     {
         playerController = GameObject.Find("FPSController");
         playerAudio = playerController.GetComponent<AudioSource>();
         objectLine.enabled = false;
         audioboy = GameObject.Find("AudioBoy");
+        InvokeRepeating("DepleteTorchBattery", 0, 1);
     }
 
     RaycastHit cache;
@@ -115,7 +120,7 @@ public class InteractableCheck : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(1))
         {
-            if (hasCollectedFlashlight == true)
+            if (hasCollectedFlashlight == true & torchPower > 0)
             {
                 if (isFlashlightOn == true)
                 {
@@ -132,7 +137,30 @@ public class InteractableCheck : MonoBehaviour {
             }
         }
 
-        }        
+        batteryAmmount.GetComponent<Slider>().value = torchPower;
+
+    }
+
+    void DepleteTorchBattery()
+    {
+        if (isFlashlightOn == true)
+        {
+            torchPower = torchPower - 0.6f;
+        }
+        else
+        {
+        }
+    }
+
+    public void forceTorchoff()
+    {
+        if (torchPower <= 0)
+        {
+            flashlight.enabled = false;
+            isFlashlightOn = false;
+            playerAudio.PlayOneShot(trochClick, 0.5f);
+        }
+    }
 
     public void ObjectsName()
     {
@@ -207,5 +235,11 @@ public class InteractableCheck : MonoBehaviour {
         yield return new WaitForSeconds(1.5f);
         blackScreen.GetComponent<Image>().enabled = false;
         playerController.GetComponent<FirstPersonController>().enabled = true;
+    }
+
+    public void EnableFlashlightHud()
+    {
+        TorchHUD.SetActive(true);
+        batteryAmmount.SetActive(true);
     }
 }
