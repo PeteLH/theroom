@@ -36,8 +36,20 @@ public class MenuHandler : MonoBehaviour {
         HUD.enabled = true;
         MainMenu.enabled = false;
 
-        Cursor.lockState = CursorLockMode.Locked;
-
         player.GetComponent<FirstPersonController>().enabled = true;
+
+        lockCursor();
+    }
+
+    public void lockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    public void unlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }
