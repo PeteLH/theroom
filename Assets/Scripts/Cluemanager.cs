@@ -32,25 +32,36 @@ public class Cluemanager : MonoBehaviour
     public bool hasTorch = false;
     public bool hasNote= false;
 
+    public GameObject inventoryController;
+
      public void FoundClue (string clueFound) //fired from object data, when that object is flagged a clue
     {
         switch (clueFound)
         {
             case "Flashlight":
                 ClueBuilder[0].isCollected = true;
+                TakeIntAndUnlock(0);
                 break;
 
             case "Note":
                 ClueBuilder[1].isCollected = true;
+                TakeIntAndUnlock(1);
                 break;
             case "DeadBody":
                 ClueBuilder[2].isCollected = true;
+                TakeIntAndUnlock(2);
                 break;
 
             case "UniWelcomePack":
                 ClueBuilder[3].isCollected = true;
+                TakeIntAndUnlock(3);
                 break;
         }
+    }
+
+    public void TakeIntAndUnlock(int clueNumber)
+    {
+        inventoryController.GetComponent<Inventory>().UnlockClue(clueNumber);
     }
 
     public void CoridoorTrigger (GameObject triggerCollided) //fire from Trigger Collision which is attached to the player

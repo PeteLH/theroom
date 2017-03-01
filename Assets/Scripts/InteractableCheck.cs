@@ -22,7 +22,7 @@ public class InteractableCheck : MonoBehaviour {
     public int roomNumber;
     public Image blackScreen;
     public GameObject TorchHUD;
-    public GameObject batteryAmmount; 
+    public GameObject batteryAmmount;
 
     bool TriggerOnceLookAtAudio = false;
     bool triggeroncestopLooingat = true;
@@ -84,7 +84,7 @@ public class InteractableCheck : MonoBehaviour {
         }
 
         //click on interactable
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown("e"))
         {
             Ray ray1 = GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             //Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
@@ -118,7 +118,7 @@ public class InteractableCheck : MonoBehaviour {
                 }
             }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown("t"))
         {
             if (hasCollectedFlashlight == true & torchPower > 0)
             {
@@ -139,6 +139,14 @@ public class InteractableCheck : MonoBehaviour {
 
         batteryAmmount.GetComponent<Slider>().value = torchPower;
 
+        if (Input.GetMouseButton(1))
+        {
+            gameObject.GetComponent<Camera>().fieldOfView = 30;
+        }
+        else
+        {
+            gameObject.GetComponent<Camera>().fieldOfView = 60;
+        }
     }
 
     void DepleteTorchBattery()

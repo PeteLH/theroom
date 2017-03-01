@@ -10,6 +10,7 @@ public class MenuHandler : MonoBehaviour {
     public Canvas HUD;
     public Canvas MainMenu;
     public GameObject player;
+    public GameObject inventoryController;
 
     // Use this for initialization
     void Start ()
@@ -21,6 +22,7 @@ public class MenuHandler : MonoBehaviour {
         fpsCam.enabled = false;
         HUD.enabled = false;
         MainMenu.enabled = true;
+        inventoryController.GetComponent<Inventory>().onMainMenu = true;
     }
 	
 	// Update is called once per frame
@@ -39,6 +41,8 @@ public class MenuHandler : MonoBehaviour {
         player.GetComponent<FirstPersonController>().enabled = true;
 
         lockCursor();
+        inventoryController.GetComponent<Inventory>().onMainMenu = false;
+        inventoryController.GetComponent<Inventory>().lockbuttons();
     }
 
     public void lockCursor()
