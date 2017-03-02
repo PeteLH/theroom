@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class ClueSetup
@@ -34,6 +35,8 @@ public class Cluemanager : MonoBehaviour
 
     public GameObject inventoryController;
 
+    public Image UnlockCLuePopUp;
+
      public void FoundClue (string clueFound) //fired from object data, when that object is flagged a clue
     {
         switch (clueFound)
@@ -57,11 +60,19 @@ public class Cluemanager : MonoBehaviour
                 TakeIntAndUnlock(3);
                 break;
         }
+
+        ClueFoundPopUp();
     }
 
     public void TakeIntAndUnlock(int clueNumber)
     {
         inventoryController.GetComponent<Inventory>().UnlockClue(clueNumber);
+    }
+
+    public void ClueFoundPopUp()
+    {
+        Debug.Log("pop p now");
+        UnlockCLuePopUp.GetComponent<Animator>().SetTrigger("FadeIn");
     }
 
     public void CoridoorTrigger (GameObject triggerCollided) //fire from Trigger Collision which is attached to the player
