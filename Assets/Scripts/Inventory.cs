@@ -10,11 +10,12 @@ public class Inventory : MonoBehaviour {
     public GameObject menuController;
     public bool onMainMenu = true;
     public Button[] unlockedClues;
+    public Image[] lockedClues;
 
     //----- 
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         inventory.enabled = false;
     }
@@ -54,5 +55,6 @@ public class Inventory : MonoBehaviour {
     {
         unlockedClues[clueNumber].image.enabled = true;
         unlockedClues[clueNumber].interactable = true;
+        lockedClues[clueNumber].enabled = false;
     }
 }
