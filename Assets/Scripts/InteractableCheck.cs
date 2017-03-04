@@ -10,6 +10,7 @@ public class InteractableCheck : MonoBehaviour {
     public Text ObjectClickOnText;
     public Image crosshair;
     public Image mouseClick;
+    public Image grab;
     public Image objectLine;
     RaycastHit hit; //mouse over
     RaycastHit hit1; //mouse click
@@ -58,7 +59,16 @@ public class InteractableCheck : MonoBehaviour {
             if (hit.transform.tag == "Interactable")
             {
                 crosshair.enabled = false;
-                mouseClick.enabled = true;
+
+                if(hit.transform.gameObject.GetComponent<ObjectData>().getsCollected == true || hit.transform.gameObject.GetComponent<ObjectData>().isLightSwitch == true || hit.transform.gameObject.GetComponent<ObjectData>().isAnimated == true)
+                {
+                    grab.enabled = true;
+                }
+                else
+                {
+                    mouseClick.enabled = true;
+                }
+
                 if (cache.collider != null & cache.collider != hit.collider)
                 {
                     TriggerOnceLookAtAudio = false;
@@ -72,6 +82,7 @@ public class InteractableCheck : MonoBehaviour {
             ClearText();
             crosshair.enabled = true;
             mouseClick.enabled = false;
+            grab.enabled = false;
         }
 
         if (hit1.collider != null)

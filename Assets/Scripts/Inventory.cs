@@ -11,6 +11,7 @@ public class Inventory : MonoBehaviour {
     public bool onMainMenu = true;
     public Button[] unlockedClues;
     public Image[] lockedClues;
+    public Scrollbar vertScroll;
 
     //----- 
 
@@ -18,6 +19,7 @@ public class Inventory : MonoBehaviour {
     void Start ()
     {
         inventory.enabled = false;
+        vertScroll.value = 1;
     }
 	
 	// Update is called once per frame

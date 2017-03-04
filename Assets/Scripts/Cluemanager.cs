@@ -71,7 +71,6 @@ public class Cluemanager : MonoBehaviour
 
     public void ClueFoundPopUp()
     {
-        Debug.Log("pop p now");
         UnlockCLuePopUp.GetComponent<Animator>().SetTrigger("FadeIn");
     }
 

@@ -16,10 +16,11 @@ public class MenuHandler : MonoBehaviour {
     void Start ()
     {
         fpsCam = GameObject.Find("FPSController").GetComponentInChildren < Camera > ();
-        menuCam = GameObject.Find("MainMenuCam").GetComponentInChildren<Camera>();
+        //menuCam = GameObject.Find("MainMenuCam").GetComponentInChildren<Camera>();
 
-        menuCam.enabled = true;
         fpsCam.enabled = false;
+        menuCam.enabled = true;
+        menuCam.fieldOfView = 60;
         HUD.enabled = false;
         MainMenu.enabled = true;
         inventoryController.GetComponent<Inventory>().onMainMenu = true;
