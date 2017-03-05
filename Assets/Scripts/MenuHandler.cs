@@ -9,8 +9,11 @@ public class MenuHandler : MonoBehaviour {
     public Camera menuCam;
     public Canvas HUD;
     public Canvas MainMenu;
+    public Canvas tutorial;
     public GameObject player;
     public GameObject inventoryController;
+    public AudioSource MainMenuMusic;
+    bool hasSeenTut = false;
 
     // Use this for initialization
     void Start ()
@@ -24,26 +27,37 @@ public class MenuHandler : MonoBehaviour {
         HUD.enabled = false;
         MainMenu.enabled = true;
         inventoryController.GetComponent<Inventory>().onMainMenu = true;
+        tutorial.enabled = false;
     }
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update ()
+    {
+	if (hasSeenTut == false & Input.GetKeyDown("e") & tutorial.enabled == true)
+        {
+            StartGame();
+        }
 	}
+    public void showTut()
+    {
+        MainMenu.enabled = false;
+        tutorial.enabled = true;
+    }
 
     public void StartGame()
     {
+        tutorial.enabled = false;
         menuCam.enabled = false;
         fpsCam.enabled = true;
 
         HUD.enabled = true;
-        MainMenu.enabled = false;
 
         player.GetComponent<FirstPersonController>().enabled = true;
 
         lockCursor();
         inventoryController.GetComponent<Inventory>().onMainMenu = false;
         inventoryController.GetComponent<Inventory>().lockbuttons();
+        MainMenuMusic.mute = true;
     }
 
     public void lockCursor()
