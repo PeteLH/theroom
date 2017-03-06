@@ -7,9 +7,16 @@ public class PauseGame : MonoBehaviour {
 
     GameObject fpsController;
     GameObject fpsCharacter;
+    public GameObject Inventory;
+    public Canvas HUD;
+    public Canvas EscMenu;
+    public GameObject menuController;
 
-	// Use this for initialization
-	void Start ()
+    public bool isOnEscMenu;
+    public int paused; //if this is 1 we are paused, if this is 0 we are unpaused.
+
+    // Use this for initialization
+    void Start ()
     {
         fpsController = GameObject.Find("FPSController");
         fpsCharacter = GameObject.Find("FirstPersonCharacter");
@@ -18,27 +25,57 @@ public class PauseGame : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            pause();
+            if(Inventory.GetComponent<Inventory>().inventory.enabled == false)
+            {
+                if (paused == 0)
+                {
+                    isOnEscMenu = true;
+                    pause();
+                }
+                else if (paused == 1)
+                {
+                    isOnEscMenu = false;
+                    unpause();
+                }
+
+                toggleEscMenu();
+            }
         }
     }
 
     public void pause()
     {
-        if(Time.timeScale == 0)
+        Time.timeScale = 0;
+        Debug.Log("game paused");
+        fpsController.GetComponent<FirstPersonController>().enabled = false;
+        fpsCharacter.GetComponent<BlurOptimized>().enabled = true;
+        paused = 1;
+    }
+
+    public void unpause()
+    {
+        Time.timeScale = 1;
+        Debug.Log("game live");
+        fpsController.GetComponent<FirstPersonController>().enabled = true;
+        fpsCharacter.GetComponent<BlurOptimized>().enabled = false;
+        paused = 0;
+    }
+
+    public void toggleEscMenu()
+    {
+        if (isOnEscMenu == false)
         {
-            Time.timeScale = 1;
-            Debug.Log("game live");
-            fpsController.GetComponent<FirstPersonController>().enabled = true;
-            fpsCharacter.GetComponent<BlurOptimized>().enabled = false;
+            EscMenu.enabled = false;
+            menuController.GetComponent<MenuHandler>().lockCursor();
+            HUD.enabled = true;
         }
-        else
+        else if (isOnEscMenu == true)
         {
-            Time.timeScale =0;
-            Debug.Log("game paused");
-            fpsController.GetComponent<FirstPersonController>().enabled = false;
-            fpsCharacter.GetComponent<BlurOptimized>().enabled = true;
+            EscMenu.enabled = true;
+            menuController.GetComponent<MenuHandler>().unlockCursor();
+            HUD.enabled = false;
         }
     }
 }

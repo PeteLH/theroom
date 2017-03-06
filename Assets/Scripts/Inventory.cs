@@ -12,6 +12,7 @@ public class Inventory : MonoBehaviour {
     public Button[] unlockedClues;
     public Image[] lockedClues;
     public Scrollbar vertScroll;
+    public bool isOnInv;
 
     //----- 
 
@@ -25,12 +26,12 @@ public class Inventory : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (Input.GetKeyDown("i") & onMainMenu == false)
+        if (Input.GetKeyDown("i") & onMainMenu == false & Gamestuff.GetComponent<PauseGame>().isOnEscMenu == false)
         {
             if (inventory.enabled == true)
             {
                 inventory.enabled = false;
-                Gamestuff.GetComponent<PauseGame>().pause();
+                Gamestuff.GetComponent<PauseGame>().unpause();
                 menuController.GetComponent<MenuHandler>().lockCursor();
                 HUD.enabled = true;
             }
