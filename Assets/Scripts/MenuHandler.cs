@@ -13,6 +13,8 @@ public class MenuHandler : MonoBehaviour {
     public GameObject player;
     public GameObject inventoryController;
     public AudioSource MainMenuMusic;
+    public AudioClip UiClick;
+    public AudioClip GameStartSting;
     bool hasSeenTut = false;
 
     // Use this for initialization
@@ -70,5 +72,15 @@ public class MenuHandler : MonoBehaviour {
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+    }
+
+    public void OverButtonClick()
+    {
+        MainMenuMusic.PlayOneShot(UiClick, 1f);
+    }
+
+    public void onGameStartSting()
+    {
+        MainMenuMusic.PlayOneShot(GameStartSting, 1f);
     }
 }

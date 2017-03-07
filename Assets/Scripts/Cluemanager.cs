@@ -35,7 +35,7 @@ public class Cluemanager : MonoBehaviour
 
     public GameObject inventoryController;
 
-    public Image UnlockCLuePopUp;
+    public GameObject UnlockCLuePopUp;
 
      public void FoundClue (string clueFound) //fired from object data, when that object is flagged a clue
     {
