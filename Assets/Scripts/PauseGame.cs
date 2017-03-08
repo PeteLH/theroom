@@ -73,6 +73,7 @@ public class PauseGame : MonoBehaviour {
         }
         else if (isOnEscMenu == true)
         {
+            Debug.Log("on esc menu");
             EscMenu.enabled = true;
             menuController.GetComponent<MenuHandler>().unlockCursor();
             HUD.enabled = false;
