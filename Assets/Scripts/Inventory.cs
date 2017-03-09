@@ -9,10 +9,12 @@ public class Inventory : MonoBehaviour {
     public GameObject Gamestuff;
     public GameObject menuController;
     public bool onMainMenu = true;
-    public Button[] unlockedClues;
+    public GameObject[] unlockedClues;
     public Image[] lockedClues;
     public Scrollbar vertScroll;
     public bool isOnInv;
+    public ToggleGroup unlockedTogs;
+    public ToggleGroup lockedTogs;
 
     //----- 
 
@@ -34,6 +36,8 @@ public class Inventory : MonoBehaviour {
                 Gamestuff.GetComponent<PauseGame>().unpause();
                 menuController.GetComponent<MenuHandler>().lockCursor();
                 HUD.enabled = true;
+                unlockedTogs.SetAllTogglesOff();
+                lockedTogs.SetAllTogglesOff();
             }
             else
             {
@@ -47,17 +51,17 @@ public class Inventory : MonoBehaviour {
 
     public void lockbuttons()
     {
-        foreach (Button clue in unlockedClues)
+        foreach (GameObject clue in unlockedClues)
         {
-            clue.image.enabled = false;
-            clue.interactable = false;
+            clue.GetComponent<Image>().enabled = false;
+            clue.GetComponent<Toggle>().interactable = false;
         }
     }
 
     public void UnlockClue(int clueNumber)
     {
-        unlockedClues[clueNumber].image.enabled = true;
-        unlockedClues[clueNumber].interactable = true;
+        unlockedClues[clueNumber].GetComponent<Image>().enabled = true;
+        unlockedClues[clueNumber].GetComponent<Toggle>().interactable = true;
         lockedClues[clueNumber].enabled = false;
     }
 }
