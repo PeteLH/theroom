@@ -15,6 +15,7 @@ public class Inventory : MonoBehaviour {
     public bool isOnInv;
     public ToggleGroup unlockedTogs;
     public ToggleGroup lockedTogs;
+    public Text clueName;
 
     //----- 
 
@@ -23,6 +24,8 @@ public class Inventory : MonoBehaviour {
     {
         inventory.enabled = false;
         vertScroll.value = 1;
+
+        clueName.text = "";
     }
 	
 	// Update is called once per frame
@@ -38,6 +41,7 @@ public class Inventory : MonoBehaviour {
                 HUD.enabled = true;
                 unlockedTogs.SetAllTogglesOff();
                 lockedTogs.SetAllTogglesOff();
+                clueName.text = "";
             }
             else
             {
@@ -63,5 +67,10 @@ public class Inventory : MonoBehaviour {
         unlockedClues[clueNumber].GetComponent<Image>().enabled = true;
         unlockedClues[clueNumber].GetComponent<Toggle>().interactable = true;
         lockedClues[clueNumber].enabled = false;
+    }
+
+    public void UpdateClueName(GameObject ClueName)
+    {
+        clueName.text = ClueName.name;
     }
 }
