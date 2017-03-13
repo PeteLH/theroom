@@ -20,6 +20,14 @@ public class doorInfo
     public GameObject door;
 }
 
+[System.Serializable]
+public class cluesNeeded
+{
+    public string name;
+    public int maxClues;
+    int cluesCollected;
+}
+
 public class Cluemanager : MonoBehaviour
 {
     [Header ("Link to roomcontroller")]
@@ -27,11 +35,12 @@ public class Cluemanager : MonoBehaviour
 
     [Header("Clue Builder")]
     public ClueSetup[] ClueBuilder;
+    public cluesNeeded[] cluesCollected;
     public doorInfo[] doorArray;
-    public int totalCluesCollected;
+    int currentRoom;
 
-    public bool hasTorch = false;
-    public bool hasNote= false;
+    //public bool hasTorch = false;
+    //public bool hasNote = false;
 
     public GameObject inventoryController;
 
@@ -58,6 +67,11 @@ public class Cluemanager : MonoBehaviour
             case "UniWelcomePack":
                 ClueBuilder[3].isCollected = true;
                 TakeIntAndUnlock(3);
+                break;
+
+            case "Room_2_date":
+                ClueBuilder[4].isCollected = true;
+                TakeIntAndUnlock(4);
                 break;
         }
 
@@ -121,6 +135,12 @@ public class Cluemanager : MonoBehaviour
         else if (ClueBuilder[2].isCollected == true & ClueBuilder[3].isCollected == true)
         {
             roomcontroller.RoomSpawner(room, 4);
+        }
+
+        switch (currentRoom)
+        {
+            case 0:
+                break; //forget this and have a counter for all clues?
         }
     }
 
