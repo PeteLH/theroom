@@ -59,7 +59,7 @@ public class MenuHandler : MonoBehaviour {
         lockCursor();
         inventoryController.GetComponent<Inventory>().onMainMenu = false;
         inventoryController.GetComponent<Inventory>().lockbuttons();
-        MainMenuMusic.mute = true;
+        onGameStartSting();
     }
 
     public void lockCursor()
@@ -82,5 +82,6 @@ public class MenuHandler : MonoBehaviour {
     public void onGameStartSting()
     {
         MainMenuMusic.PlayOneShot(GameStartSting, 1f);
+        //MainMenuMusic.mute = true;
     }
 }

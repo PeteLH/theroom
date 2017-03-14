@@ -39,6 +39,9 @@ public class Cluemanager : MonoBehaviour
     public doorInfo[] doorArray;
     int currentRoom;
 
+    [SerializeField]
+    int clueAmount;
+
     //public bool hasTorch = false;
     //public bool hasNote = false;
 
@@ -59,6 +62,7 @@ public class Cluemanager : MonoBehaviour
                 ClueBuilder[1].isCollected = true;
                 TakeIntAndUnlock(1);
                 break;
+
             case "DeadBody":
                 ClueBuilder[2].isCollected = true;
                 TakeIntAndUnlock(2);
@@ -75,6 +79,7 @@ public class Cluemanager : MonoBehaviour
                 break;
         }
 
+        clueAmount++;
         ClueFoundPopUp();
     }
 
@@ -116,32 +121,76 @@ public class Cluemanager : MonoBehaviour
     // 1 - Note
     void Scene0SpawnModifier(int room) //spawn scene 1 items depending on what clues have been found
     {
-        if (ClueBuilder[0].isCollected == false & ClueBuilder[1].isCollected == false) //Need to fix this, if first 2 clues are collected hw do we trigger someting different when 3rd and 4th are too? 
+        //2 - 6 - 8 - 11 - 13 - 16 - /0/ - 18 - 19 - 20 - 22 - 24
+        if (clueAmount < 2)
         {
             roomcontroller.RoomSpawner(room, 0);
         }
-        else if (ClueBuilder[0].isCollected == true & ClueBuilder[1].isCollected == false)
-        {
-            roomcontroller.RoomSpawner(room, 1);
-        }
-        else if (ClueBuilder[0].isCollected == false & ClueBuilder[1].isCollected == true)
-        {
-            roomcontroller.RoomSpawner(room, 2);
-        }
-        else if (ClueBuilder[0].isCollected == true & ClueBuilder[1].isCollected == true)
+        else if (clueAmount < 6)
         {
             roomcontroller.RoomSpawner(room, 3);
         }
-        else if (ClueBuilder[2].isCollected == true & ClueBuilder[3].isCollected == true)
+        else if (clueAmount < 8)
         {
             roomcontroller.RoomSpawner(room, 4);
         }
-
-        switch (currentRoom)
+        else if (clueAmount < 11)
         {
-            case 0:
-                break; //forget this and have a counter for all clues?
+            roomcontroller.RoomSpawner(room, 5);
         }
+        else if (clueAmount < 13)
+        {
+            roomcontroller.RoomSpawner(room, 6);
+        }
+        else if (clueAmount < 16)
+        {
+            roomcontroller.RoomSpawner(room, 7);
+        }
+        else if (clueAmount < 17) // this is the room with no clue (0) - need to have a hidden clue sort of thing?
+        {
+            roomcontroller.RoomSpawner(room, 8);
+        }
+        else if (clueAmount < 18)
+        {
+            roomcontroller.RoomSpawner(room, 9);
+        }
+        else if (clueAmount < 19)
+        {
+            roomcontroller.RoomSpawner(room, 10);
+        }
+        else if (clueAmount < 20)
+        {
+            roomcontroller.RoomSpawner(room, 11);
+        }
+        else if (clueAmount < 22)
+        {
+            roomcontroller.RoomSpawner(room, 12);
+        }
+        else if (clueAmount < 24)
+        {
+            roomcontroller.RoomSpawner(room, 13);
+        }
+
+        //if (ClueBuilder[0].isCollected == false & ClueBuilder[1].isCollected == false) //Need to fix this, if first 2 clues are collected hw do we trigger someting different when 3rd and 4th are too? 
+        //{
+        //    roomcontroller.RoomSpawner(room, 0);
+        //}
+        //else if (ClueBuilder[0].isCollected == true & ClueBuilder[1].isCollected == false)
+        //{
+        //    roomcontroller.RoomSpawner(room, 1);
+        //}
+        //else if (ClueBuilder[0].isCollected == false & ClueBuilder[1].isCollected == true)
+        //{
+        //    roomcontroller.RoomSpawner(room, 2);
+        //}
+        //else if (ClueBuilder[0].isCollected == true & ClueBuilder[1].isCollected == true)
+        //{
+        //    roomcontroller.RoomSpawner(room, 3);
+        //}
+        //else if (ClueBuilder[2].isCollected == true & ClueBuilder[3].isCollected == true)
+        //{
+        //    roomcontroller.RoomSpawner(room, 4);
+        //}
     }
 
     void DoorOpenAndLock(GameObject triggerCollided) // door lock settings after each room
