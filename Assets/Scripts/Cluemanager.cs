@@ -77,6 +77,11 @@ public class Cluemanager : MonoBehaviour
                 ClueBuilder[4].isCollected = true;
                 TakeIntAndUnlock(4);
                 break;
+
+            case "Room_2_wardrobe":            
+                ClueBuilder[5].isCollected = true;
+                TakeIntAndUnlock(5);
+                break;
         }
 
         clueAmount++;

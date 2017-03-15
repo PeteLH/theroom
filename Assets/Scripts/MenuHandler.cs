@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
+using MorePPEffects;
 
 public class MenuHandler : MonoBehaviour {
 
@@ -64,10 +65,14 @@ public class MenuHandler : MonoBehaviour {
     {
         onPrologue = true;
         MainMenuMusic.mute = true;
-        tutorial.enabled = false;
         prologue.enabled = true;
         prologueAnimator.SetTrigger("FadeIn");
         prologueText.text = "Whatever you do, do not open your eyes.";
+    }
+
+    public void disableTutSCreen()
+    {
+        tutorial.enabled = false;
     }
 
     public int prologueStage;
@@ -120,7 +125,6 @@ public class MenuHandler : MonoBehaviour {
         onPrologue = false;
         menuCam.enabled = false;
         fpsCam.enabled = true;
-
         HUD.enabled = true;
 
         player.GetComponent<FirstPersonController>().enabled = true;

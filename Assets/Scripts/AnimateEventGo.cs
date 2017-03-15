@@ -4,6 +4,7 @@ using System.Collections;
 public class AnimateEventGo : MonoBehaviour {
 
     public GameObject objectDataItem;
+    public GameObject menuControler;
 
     public void PlayAudio()
     {
@@ -27,5 +28,10 @@ public class AnimateEventGo : MonoBehaviour {
     public void ToggleIsAnimating()
     {
         objectDataItem.GetComponent<ObjectData>().toggleIsAnimating();
+    }
+
+    public void HideTut()
+    {
+        menuControler.GetComponent<MenuHandler>().disableTutSCreen();
     }
 }
