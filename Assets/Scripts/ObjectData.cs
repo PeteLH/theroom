@@ -15,7 +15,7 @@ public class ObjectData : MonoBehaviour {
     public bool isClue;
     public bool getsCollected;
     public bool isBattery;
-    public string ClueName;
+    public int clueNo;
 
     public AudioSource onUseAudioSource;
     public AudioClip[] onUseClipsToPlay;
@@ -59,12 +59,12 @@ public class ObjectData : MonoBehaviour {
         {
             player.GetComponent<InteractableCheck>().objectDescription();
             player.GetComponent<InteractableCheck>().objectLine.enabled = true;
-            ClueManager.GetComponent<Cluemanager>().FoundClue (ClueName);
+            ClueManager.GetComponent<Cluemanager>().FoundClue (clueNo);
         }
 
         if (getsCollected == true)
         {
-            detroyCurrentItem(ClueName);
+            detroyCurrentItem(clueNo);
         }
 
         if (isBattery == true)
@@ -263,11 +263,11 @@ public class ObjectData : MonoBehaviour {
         }
     }
 
-    public void detroyCurrentItem(string clueName)
+    public void detroyCurrentItem(int clueNo_)
     {
         Destroy(gameObject);
 
-        if(clueName == "Flashlight")
+        if(clueNo_ == 0) // if the clue is the torch
         {
             player.GetComponent<InteractableCheck>().hasCollectedFlashlight = true;
             player.GetComponent<InteractableCheck>().EnableFlashlightHud();

@@ -25,7 +25,6 @@ public class cluesNeeded
 {
     public string name;
     public int maxClues;
-    int cluesCollected;
 }
 
 public class Cluemanager : MonoBehaviour
@@ -37,55 +36,24 @@ public class Cluemanager : MonoBehaviour
     public ClueSetup[] ClueBuilder;
     public cluesNeeded[] cluesCollected;
     public doorInfo[] doorArray;
-    int currentRoom;
 
     [SerializeField]
     int clueAmount;
-
-    //public bool hasTorch = false;
-    //public bool hasNote = false;
 
     public GameObject inventoryController;
 
     public GameObject UnlockCLuePopUp;
 
-     public void FoundClue (string clueFound) //fired from object data, when that object is flagged a clue
+     public void FoundClue (int clueFound) //fired from object data, when that object is flagged a clue
     {
-        switch (clueFound)
+        if (ClueBuilder[clueFound].isCollected != true)
         {
-            case "Flashlight":
-                ClueBuilder[0].isCollected = true;
-                TakeIntAndUnlock(0);
-                break;
+            ClueBuilder[clueFound].isCollected = true;
+            TakeIntAndUnlock(clueFound);
 
-            case "Note":
-                ClueBuilder[1].isCollected = true;
-                TakeIntAndUnlock(1);
-                break;
-
-            case "DeadBody":
-                ClueBuilder[2].isCollected = true;
-                TakeIntAndUnlock(2);
-                break;
-
-            case "UniWelcomePack":
-                ClueBuilder[3].isCollected = true;
-                TakeIntAndUnlock(3);
-                break;
-
-            case "Room_2_date":
-                ClueBuilder[4].isCollected = true;
-                TakeIntAndUnlock(4);
-                break;
-
-            case "Room_2_wardrobe":            
-                ClueBuilder[5].isCollected = true;
-                TakeIntAndUnlock(5);
-                break;
+            clueAmount++;
+            ClueFoundPopUp();
         }
-
-        clueAmount++;
-        ClueFoundPopUp();
     }
 
     public void TakeIntAndUnlock(int clueNumber)
@@ -175,27 +143,6 @@ public class Cluemanager : MonoBehaviour
         {
             roomcontroller.RoomSpawner(room, 13);
         }
-
-        //if (ClueBuilder[0].isCollected == false & ClueBuilder[1].isCollected == false) //Need to fix this, if first 2 clues are collected hw do we trigger someting different when 3rd and 4th are too? 
-        //{
-        //    roomcontroller.RoomSpawner(room, 0);
-        //}
-        //else if (ClueBuilder[0].isCollected == true & ClueBuilder[1].isCollected == false)
-        //{
-        //    roomcontroller.RoomSpawner(room, 1);
-        //}
-        //else if (ClueBuilder[0].isCollected == false & ClueBuilder[1].isCollected == true)
-        //{
-        //    roomcontroller.RoomSpawner(room, 2);
-        //}
-        //else if (ClueBuilder[0].isCollected == true & ClueBuilder[1].isCollected == true)
-        //{
-        //    roomcontroller.RoomSpawner(room, 3);
-        //}
-        //else if (ClueBuilder[2].isCollected == true & ClueBuilder[3].isCollected == true)
-        //{
-        //    roomcontroller.RoomSpawner(room, 4);
-        //}
     }
 
     void DoorOpenAndLock(GameObject triggerCollided) // door lock settings after each room
