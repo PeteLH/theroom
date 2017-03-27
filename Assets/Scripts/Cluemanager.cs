@@ -56,9 +56,9 @@ public class Cluemanager : MonoBehaviour
         }
     }
 
-    public void TakeIntAndUnlock(int clueNumber)
+    public void TakeIntAndUnlock(int clueFound)
     {
-        inventoryController.GetComponent<Inventory>().UnlockClue(clueNumber);
+        inventoryController.GetComponent<Inventory>().addItemToInventory(clueFound);
     }
 
     public void ClueFoundPopUp()

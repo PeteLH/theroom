@@ -141,7 +141,7 @@ public class MenuHandler : MonoBehaviour {
 
         lockCursor();
         inventoryController.GetComponent<Inventory>().onMainMenu = false;
-        inventoryController.GetComponent<Inventory>().lockbuttons();
+        //inventoryController.GetComponent<Inventory>().lockbuttons();
     }
 
     public void lockCursor()

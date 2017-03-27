@@ -17,10 +17,8 @@ public class Inventory : MonoBehaviour {
     public ToggleGroup lockedTogs;
     public Text clueName;
     public Animator InvnetoryHolderForAnim;
+    public int[] inventorySlots;
 
-    //----- 
-
-    // Use this for initialization
     void Start ()
     {
         //inventory.enabled = false;
@@ -29,7 +27,6 @@ public class Inventory : MonoBehaviour {
         clueName.text = "";
     }
 
-    // Update is called once per frame
     bool invIsIn;
 	void Update ()
     {
@@ -59,20 +56,26 @@ public class Inventory : MonoBehaviour {
         }
     }
 
-    public void lockbuttons()
-    {
-        foreach (GameObject clue in unlockedClues)
-        {
-            clue.GetComponent<Image>().enabled = false;
-            clue.GetComponent<Toggle>().interactable = false;
-        }
-    }
+    //public void lockbuttons()
+    //{
+    //    foreach (GameObject clue in unlockedClues)
+    //    {
+    //        clue.GetComponent<Image>().enabled = false;
+    //        clue.GetComponent<Toggle>().interactable = false;
+    //    }
+    //}
 
-    public void UnlockClue(int clueNumber)
+    //public void UnlockClue(int clueNumber)
+    //{
+    //    unlockedClues[clueNumber].GetComponent<Image>().enabled = true;
+    //    unlockedClues[clueNumber].GetComponent<Toggle>().interactable = true;
+    //    lockedClues[clueNumber].enabled = false;
+    //}
+
+    public void addItemToInventory(int clueNumber)
     {
+        inventorySlots[0] = clueNumber;
         unlockedClues[clueNumber].GetComponent<Image>().enabled = true;
-        unlockedClues[clueNumber].GetComponent<Toggle>().interactable = true;
-        lockedClues[clueNumber].enabled = false;
     }
 
     public void UpdateClueName(GameObject ClueName)
