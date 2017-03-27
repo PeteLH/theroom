@@ -67,7 +67,7 @@ public class MenuHandler : MonoBehaviour {
         MainMenuMusic.mute = true;
         prologue.enabled = true;
         prologueAnimator.SetTrigger("FadeIn");
-        prologueText.text = "Whatever you do, do not open your eyes.";
+        prologueText.text = "Whatever you do, don't open your eyes.";
     }
 
     public void disableTutSCreen()
@@ -82,7 +82,7 @@ public class MenuHandler : MonoBehaviour {
         switch (prologueStage)
         {
             case 0:
-                prologueText.text = "What is your name?";
+                prologueText.text = "What's your name?";
                 playerNameEntry.SetActive(true);
                 prologueStage++;
                 break;
@@ -92,27 +92,37 @@ public class MenuHandler : MonoBehaviour {
                 {
                     playerName = playerNameEntry.GetComponent<InputField>().text;
                     playerNameEntry.SetActive(false);
-                    prologueText.text = "You strayed from the straight path " + playerName + ", and now are lost in this dark wood.";
+                    prologueText.text = "I think you lost your way " + playerName + ", now you've ended up in this shit hole.";
                     prologueStage++;
                 }
                 break;
 
             case 2:
-                prologueText.text = "I cannt guide you. But will restore your vision.";
+                prologueText.text = "Your eyes are pretty messed up, god knows what you did.";
                 prologueStage++;
                 break;
 
             case 3:
-                prologueText.text = playerName + " look for any clue that will lead you away from here.";
+                prologueText.text =  "Don't worry I can fix you up. You're going to need those peepers!";
                 prologueStage++;
                 break;
 
             case 4:
-                prologueText.text = "Or it will find you...";
+                prologueText.text = "I'll be gone when you open them up. You should do the same, get the hell out of here.";
                 prologueStage++;
                 break;
 
             case 5:
+                prologueText.text = "Listen, you need to look for any clues that are going to help you get out.";
+                prologueStage++;
+                break;
+
+            case 6:
+                prologueText.text = "Ok, all done. Good luck " + playerName + " you'll need it!"; //ok all done, you'll be good to open them up soon! - New line, Good luck -playername- you'll need it...
+                prologueStage++;
+                break;
+
+            case 7:
                 prologueText.text = "";
                 StartGame();
                 break;

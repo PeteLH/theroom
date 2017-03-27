@@ -16,39 +16,45 @@ public class Inventory : MonoBehaviour {
     public ToggleGroup unlockedTogs;
     public ToggleGroup lockedTogs;
     public Text clueName;
+    public Animator InvnetoryHolderForAnim;
 
     //----- 
 
     // Use this for initialization
     void Start ()
     {
-        inventory.enabled = false;
+        //inventory.enabled = false;
         vertScroll.value = 1;
 
         clueName.text = "";
     }
-	
-	// Update is called once per frame
+
+    // Update is called once per frame
+    bool invIsIn;
 	void Update ()
     {
         if (Input.GetKeyDown("i") & onMainMenu == false & Gamestuff.GetComponent<PauseGame>().isOnEscMenu == false)
         {
-            if (inventory.enabled == true)
+            if (invIsIn == false)
             {
-                inventory.enabled = false;
-                Gamestuff.GetComponent<PauseGame>().unpause();
-                menuController.GetComponent<MenuHandler>().lockCursor();
-                HUD.enabled = true;
-                unlockedTogs.SetAllTogglesOff();
-                lockedTogs.SetAllTogglesOff();
-                clueName.text = "";
+                animateInventoryIn();
+                invIsIn = true;
+                //inventory.enabled = true;
+                Gamestuff.GetComponent<PauseGame>().pause();
+                menuController.GetComponent<MenuHandler>().unlockCursor();
+                //HUD.enabled = false;
             }
             else
             {
-                inventory.enabled = true;
-                Gamestuff.GetComponent<PauseGame>().pause();
-                menuController.GetComponent<MenuHandler>().unlockCursor();
-                HUD.enabled = false;
+                animateInventoryOut();
+                invIsIn = false;
+                //inventory.enabled = false;
+                Gamestuff.GetComponent<PauseGame>().unpause();
+                menuController.GetComponent<MenuHandler>().lockCursor();
+                //HUD.enabled = true;
+                //unlockedTogs.SetAllTogglesOff();
+                //lockedTogs.SetAllTogglesOff();
+                //clueName.text = "";
             }
         }
     }
@@ -72,5 +78,15 @@ public class Inventory : MonoBehaviour {
     public void UpdateClueName(GameObject ClueName)
     {
         clueName.text = ClueName.name;
+    }
+
+    public void animateInventoryIn()
+    {
+        InvnetoryHolderForAnim.SetTrigger("SlideIn");
+    }
+
+    public void animateInventoryOut()
+    {
+        InvnetoryHolderForAnim.SetTrigger("SlideOut");
     }
 }

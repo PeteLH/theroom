@@ -47,7 +47,7 @@ public class PauseGame : MonoBehaviour {
 
     public void pause()
     {
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
         Debug.Log("game paused");
         fpsController.GetComponent<FirstPersonController>().enabled = false;
         fpsCharacter.GetComponent<BlurOptimized>().enabled = true;
@@ -56,7 +56,7 @@ public class PauseGame : MonoBehaviour {
 
     public void unpause()
     {
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
         Debug.Log("game live");
         fpsController.GetComponent<FirstPersonController>().enabled = true;
         fpsCharacter.GetComponent<BlurOptimized>().enabled = false;
