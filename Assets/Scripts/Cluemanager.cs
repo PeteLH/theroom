@@ -11,6 +11,7 @@ public class ClueSetup
     public bool isCollected;
     [Header("Scene this appears in")]
     public int sceneNumber;
+    public Sprite objectIcon;
 }
 
 [System.Serializable]

@@ -8,6 +8,7 @@ public class Inventory : MonoBehaviour {
     public Canvas HUD;
     public GameObject Gamestuff;
     public GameObject menuController;
+    public GameObject clueManager;
     public bool onMainMenu = true;
     public GameObject[] unlockedClues;
     public Image[] lockedClues;
@@ -74,8 +75,18 @@ public class Inventory : MonoBehaviour {
 
     public void addItemToInventory(int clueNumber)
     {
-        inventorySlots[0] = clueNumber;
-        unlockedClues[clueNumber].GetComponent<Image>().enabled = true;
+        //inventorySlots[0] = clueNumber;
+        //unlockedClues[clueNumber].GetComponent<Image>().enabled = clueManager.GetComponent<Cluemanager>().ClueBuilder[clueNumber].objectIcon;
+    }
+
+    public void pickupItem()
+    {
+        //Cursor.SetCursor(clueManager.GetComponent<Cluemanager>().ClueBuilder[0].objectIcon, 0);
+    }
+
+    public void dropItem()
+    {
+        Debug.Log("drop!");
     }
 
     public void UpdateClueName(GameObject ClueName)
