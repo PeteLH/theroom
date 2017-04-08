@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Inventory : MonoBehaviour {
 
@@ -11,7 +12,6 @@ public class Inventory : MonoBehaviour {
     public GameObject clueManager;
     public bool onMainMenu = true;
     public GameObject[] unlockedClues;
-    public Image[] lockedClues;
     public Scrollbar vertScroll;
     public bool isOnInv;
     public ToggleGroup unlockedTogs;
@@ -20,11 +20,10 @@ public class Inventory : MonoBehaviour {
     public Animator InvnetoryHolderForAnim;
     public int[] inventorySlots;
 
+    public bool pickingUpItem = false;
+
     void Start ()
     {
-        //inventory.enabled = false;
-        vertScroll.value = 1;
-
         clueName.text = "";
     }
 
@@ -55,38 +54,43 @@ public class Inventory : MonoBehaviour {
                 //clueName.text = "";
             }
         }
+
+        if (pickingUpItem == true)
+        {
+            unlockedClues[0].transform.position = Input.mousePosition;
+        }
     }
-
-    //public void lockbuttons()
-    //{
-    //    foreach (GameObject clue in unlockedClues)
-    //    {
-    //        clue.GetComponent<Image>().enabled = false;
-    //        clue.GetComponent<Toggle>().interactable = false;
-    //    }
-    //}
-
-    //public void UnlockClue(int clueNumber)
-    //{
-    //    unlockedClues[clueNumber].GetComponent<Image>().enabled = true;
-    //    unlockedClues[clueNumber].GetComponent<Toggle>().interactable = true;
-    //    lockedClues[clueNumber].enabled = false;
-    //}
 
     public void addItemToInventory(int clueNumber)
     {
-        //inventorySlots[0] = clueNumber;
-        //unlockedClues[clueNumber].GetComponent<Image>().enabled = clueManager.GetComponent<Cluemanager>().ClueBuilder[clueNumber].objectIcon;
+        int i;
+        for (i = 0; i < inventorySlots.Length; i++)
+        {
+            if (inventorySlots[i] == 0)
+            {
+                inventorySlots[i] = clueNumber;
+                unlockedClues[clueNumber].GetComponent<Image>().overrideSprite = clueManager.GetComponent<Cluemanager>().ClueBuilder[clueNumber].objectIcon;
+                unlockedClues[clueNumber].GetComponent<Image>().enabled = true;
+                return;
+            }
+        }
     }
 
     public void pickupItem()
     {
-        //Cursor.SetCursor(clueManager.GetComponent<Cluemanager>().ClueBuilder[0].objectIcon, 0);
+        Debug.Log("pickup");
+        pickingUpItem = true;
+    }
+
+    public void currentlyOver(GameObject objectOver)
+    {
+        Debug.Log("over " + objectOver);
     }
 
     public void dropItem()
     {
         Debug.Log("drop!");
+        pickingUpItem = false;
     }
 
     public void UpdateClueName(GameObject ClueName)
