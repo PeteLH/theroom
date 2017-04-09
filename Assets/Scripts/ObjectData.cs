@@ -72,11 +72,6 @@ public class ObjectData : MonoBehaviour {
             player.GetComponent<InteractableCheck>().torchPower = player.GetComponent<InteractableCheck>().torchPower + 50;
         }
 
-        //if (isTeleportDoor == true)
-        //{
-        //    GoHere();
-        //}
-
         if (isLightSwitch == true)
         {
             if (isLightsOn == true)
@@ -182,7 +177,6 @@ public class ObjectData : MonoBehaviour {
                                 isClosed = false;
                             }
                         }
-
                         break;
                 }
             }
@@ -267,7 +261,7 @@ public class ObjectData : MonoBehaviour {
     {
         Destroy(gameObject);
 
-        if(clueNo_ == 0) // if the clue is the torch
+        if(clueNo_ == 1) // if the clue is the torch
         {
             player.GetComponent<InteractableCheck>().hasCollectedFlashlight = true;
             player.GetComponent<InteractableCheck>().EnableFlashlightHud();

@@ -3,6 +3,13 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+[System.Serializable]
+public class InventoryItems
+{
+    public int item = -1;
+    public Image itemIcon;
+}
+
 public class Inventory : MonoBehaviour {
 
     public Canvas inventory;
@@ -18,9 +25,14 @@ public class Inventory : MonoBehaviour {
     public ToggleGroup lockedTogs;
     public Text clueName;
     public Animator InvnetoryHolderForAnim;
-    public int[] inventorySlots;
+    public InventoryItems[] inventorySlots;
 
     public bool pickingUpItem = false;
+    public int pickedupitemNo;
+
+    public RectTransform pickedupItem;
+    public RectTransform[] slots;
+    public RectTransform currentOver;
 
     void Start ()
     {
@@ -36,61 +48,98 @@ public class Inventory : MonoBehaviour {
             {
                 animateInventoryIn();
                 invIsIn = true;
-                //inventory.enabled = true;
                 Gamestuff.GetComponent<PauseGame>().pause();
                 menuController.GetComponent<MenuHandler>().unlockCursor();
-                //HUD.enabled = false;
             }
             else
             {
                 animateInventoryOut();
                 invIsIn = false;
-                //inventory.enabled = false;
                 Gamestuff.GetComponent<PauseGame>().unpause();
                 menuController.GetComponent<MenuHandler>().lockCursor();
-                //HUD.enabled = true;
-                //unlockedTogs.SetAllTogglesOff();
-                //lockedTogs.SetAllTogglesOff();
-                //clueName.text = "";
             }
         }
 
         if (pickingUpItem == true)
         {
-            unlockedClues[0].transform.position = Input.mousePosition;
-        }
-    }
+            unlockedClues[pickedupitemNo].transform.position = Input.mousePosition;
+            pickedupItem = unlockedClues[pickedupitemNo].GetComponent<RectTransform>();
 
-    public void addItemToInventory(int clueNumber)
-    {
-        int i;
-        for (i = 0; i < inventorySlots.Length; i++)
-        {
-            if (inventorySlots[i] == 0)
+            foreach (RectTransform slot in slots)
             {
-                inventorySlots[i] = clueNumber;
-                unlockedClues[clueNumber].GetComponent<Image>().overrideSprite = clueManager.GetComponent<Cluemanager>().ClueBuilder[clueNumber].objectIcon;
-                unlockedClues[clueNumber].GetComponent<Image>().enabled = true;
-                return;
+                if (rectOverlaps(pickedupItem, slot))
+                {
+                    Debug.Log("over " + slot.name);
+                    currentOver = slot;
+                }
             }
         }
     }
 
-    public void pickupItem()
+    bool rectOverlaps(RectTransform rectTrans1, RectTransform rectTrans2)
     {
-        Debug.Log("pickup");
-        pickingUpItem = true;
+        Rect rect1 = new Rect(rectTrans1.localPosition.x, rectTrans1.localPosition.y, rectTrans1.rect.width, rectTrans1.rect.height);
+        Rect rect2 = new Rect(rectTrans2.localPosition.x, rectTrans2.localPosition.y, rectTrans2.rect.width, rectTrans2.rect.height);
+
+        return rect1.Overlaps(rect2);
     }
 
-    public void currentlyOver(GameObject objectOver)
+    public void addItemToInventory(int clueNumber) //add the item of this clue number to the inventory 
     {
-        Debug.Log("over " + objectOver);
+        int i;
+        for (i = 0; i < inventorySlots.Length; i++) //iterate through the inventory slots
+
+        {
+            if (inventorySlots[i].item == -1) //if the inventory slot is 0 (empty) 
+            {
+                inventorySlots[i].item = clueNumber; //store the clue
+                unlockedClues[i].GetComponent<Image>().overrideSprite = clueManager.GetComponent<Cluemanager>().ClueBuilder[clueNumber].objectIcon; //set the UI image above that slot to the one of the clue
+                unlockedClues[i].GetComponent<Image>().enabled = true; //enable that image
+
+                inventorySlots[i].itemIcon = unlockedClues[i].GetComponent<Image>();
+                return; //break out of this fucntion 
+            }
+        }
+    }
+
+    public void pickupItem(Image Objectpickedup)
+    {
+        Debug.Log("pickup");
+        // for each item in our inventory scan through and find the one we clicked on
+        foreach (InventoryItems item in inventorySlots)
+        {
+            if (Objectpickedup == item.itemIcon)
+            {
+                pickedupitemNo = item.item;
+            }
+        }
+        pickingUpItem = true;
     }
 
     public void dropItem()
     {
         Debug.Log("drop!");
         pickingUpItem = false;
+
+        {
+            int i;
+            for (i = 0; i < slots.Length; i++)
+            {
+                if (currentOver == slots[i])
+                {
+                    unlockedClues[pickedupitemNo].transform.position = slots[i].transform.position;
+                }
+                //else if (currentOver == null)
+                //{
+                //    foreach (int no in inventorySlots)
+                //        if (no == 1)
+                //        {
+                //            System.Array.IndexOf(inventorySlots, no);
+                //            unlockedClues[1].transform.position = slots[System.Array.IndexOf(inventorySlots, no)].GetComponent<Transform>().position;
+                //        }
+                //}
+            }
+        }
     }
 
     public void UpdateClueName(GameObject ClueName)

@@ -8,6 +8,6 @@ public class overThisObject : MonoBehaviour {
 
     public void Over()
     {
-        inventory.GetComponent<Inventory>().currentlyOver(gameObject);
+        //inventory.GetComponent<Inventory>().currentlyOver(gameObject);
     }
 }
