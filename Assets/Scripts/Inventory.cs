@@ -102,18 +102,24 @@ public class Inventory : MonoBehaviour {
         }
     }
 
+    public int PickedupItemSlot;
+
     public void pickupItem(Image Objectpickedup)
     {
-        Debug.Log("pickup");
         // for each item in our inventory scan through and find the one we clicked on
         foreach (InventoryItems item in inventorySlots)
         {
-            if (Objectpickedup == item.itemIcon)
+            int i;
+            for (i = 0; i < inventorySlots.Length; i++)
             {
-                pickedupitemNo = item.item;
+                if (Objectpickedup == inventorySlots[i].itemIcon)
+                {
+                    pickedupitemNo = item.item;
+                    pickingUpItem = true;
+                    Debug.Log("pickup");
+                }
             }
         }
-        pickingUpItem = true;
     }
 
     public void dropItem()
@@ -128,16 +134,10 @@ public class Inventory : MonoBehaviour {
                 if (currentOver == slots[i])
                 {
                     unlockedClues[pickedupitemNo].transform.position = slots[i].transform.position;
+                    inventorySlots[i].item = pickedupitemNo;
+                    inventorySlots[i].itemIcon = unlockedClues[i].GetComponent<Image>(); //this isn't working :(
+                    // need to clear previous slot
                 }
-                //else if (currentOver == null)
-                //{
-                //    foreach (int no in inventorySlots)
-                //        if (no == 1)
-                //        {
-                //            System.Array.IndexOf(inventorySlots, no);
-                //            unlockedClues[1].transform.position = slots[System.Array.IndexOf(inventorySlots, no)].GetComponent<Transform>().position;
-                //        }
-                //}
             }
         }
     }
