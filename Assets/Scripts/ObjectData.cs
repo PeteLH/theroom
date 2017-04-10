@@ -261,7 +261,7 @@ public class ObjectData : MonoBehaviour {
     {
         Destroy(gameObject);
 
-        if(clueNo_ == 1) // if the clue is the torch
+        if(clueNo_ == 0) // if the clue is the torch
         {
             player.GetComponent<InteractableCheck>().hasCollectedFlashlight = true;
             player.GetComponent<InteractableCheck>().EnableFlashlightHud();

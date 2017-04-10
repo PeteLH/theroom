@@ -60,22 +60,24 @@ public class Inventory : MonoBehaviour {
             }
         }
 
+        //if the picked up item bool is true...
         if (pickingUpItem == true)
         {
-            unlockedClues[pickedupitemNo].transform.position = Input.mousePosition;
-            pickedupItem = unlockedClues[pickedupitemNo].GetComponent<RectTransform>();
+            unlockedClues[pickedupitemNo].transform.position = Input.mousePosition; //the image we use for items collected set to follow mouse cursor
+            pickedupItem = unlockedClues[pickedupitemNo].GetComponent<RectTransform>(); //get the rect transform of the object we have picked up for...
 
-            foreach (RectTransform slot in slots)
+            foreach (RectTransform slot in slots) // in the slots array we list all of th UI images for the inevntory slots, here we iterate through these to see if we're overlapping any empty slots
             {
-                if (rectOverlaps(pickedupItem, slot))
+                if (rectOverlaps(pickedupItem, slot)) //if we are overlapping
                 {
-                    Debug.Log("over " + slot.name);
-                    currentOver = slot;
+                    Debug.Log("over " + slot.name); //debug log
+                    currentOver = slot; //cache the slot we're over
                 }
             }
         }
     }
 
+    //this function handles wether we're our rect transforsm are overlapping 
     bool rectOverlaps(RectTransform rectTrans1, RectTransform rectTrans2)
     {
         Rect rect1 = new Rect(rectTrans1.localPosition.x, rectTrans1.localPosition.y, rectTrans1.rect.width, rectTrans1.rect.height);
@@ -102,42 +104,58 @@ public class Inventory : MonoBehaviour {
         }
     }
 
-    public int PickedupItemSlot;
+    public int PickedupItemSlot; //cache the picked up itmes slot for drop refrence
 
     public void pickupItem(Image Objectpickedup)
     {
         // for each item in our inventory scan through and find the one we clicked on
-        foreach (InventoryItems item in inventorySlots)
+        int i;
+        for (i = 0; i < inventorySlots.Length; i++)
         {
-            int i;
-            for (i = 0; i < inventorySlots.Length; i++)
+            if (Objectpickedup == inventorySlots[i].itemIcon) //if the image of the object picked up is the same as the one cached in the inventory array
             {
-                if (Objectpickedup == inventorySlots[i].itemIcon)
-                {
-                    pickedupitemNo = item.item;
-                    pickingUpItem = true;
-                    Debug.Log("pickup");
-                }
+                pickedupitemNo = inventorySlots[i].item; //record what item we've currently picked up
+                pickingUpItem = true; // flag that we have picked up an item
+                PickedupItemSlot = i; // cache the slot in the inventory array that we have picked an item up from
+                Debug.Log("pickup"); //debug log
+                return; //end the function
             }
         }
     }
 
     public void dropItem()
     {
-        Debug.Log("drop!");
-        pickingUpItem = false;
+        Debug.Log("drop!"); //debuglog
+        pickingUpItem = false; //set this to false when we drop an item
 
+        int i;
+        for (i = 0; i < slots.Length; i++) //go through all our inventory slots
         {
-            int i;
-            for (i = 0; i < slots.Length; i++)
+            if (currentOver == slots[i]) //if the slot we are currently over is equal to one of the slots in the array...
             {
-                if (currentOver == slots[i])
+                if (inventorySlots[i].item == pickedupitemNo) //slot is the same one as the item was picked up from
                 {
-                    unlockedClues[pickedupitemNo].transform.position = slots[i].transform.position;
-                    inventorySlots[i].item = pickedupitemNo;
-                    inventorySlots[i].itemIcon = unlockedClues[i].GetComponent<Image>(); //this isn't working :(
-                    // need to clear previous slot
+                    unlockedClues[pickedupitemNo].transform.position = slots[PickedupItemSlot].transform.position;
                 }
+                else if (inventorySlots[i].item == -1) //slot is empty
+                {
+                    unlockedClues[pickedupitemNo].transform.position = slots[i].transform.position; //drop the item into that slot
+                    inventorySlots[i].item = pickedupitemNo; //update our inventory array item to be that item number
+                    inventorySlots[i].itemIcon = unlockedClues[pickedupitemNo].GetComponent<Image>(); //change the image in the inventory array to be the same as the one we have picked up
+
+                    // here we clear the previous slot
+                    inventorySlots[PickedupItemSlot].item = -1;
+                    inventorySlots[PickedupItemSlot].itemIcon = null;
+                    PickedupItemSlot = -1;
+                }
+                else if (inventorySlots[i].item != pickedupitemNo && inventorySlots[i].item >= 0) //is not the current slot and is not empty
+                {
+                    //need to get what's in the slot the item is dropping into and store it
+                    // drop the picked up item into this slot
+                    //then use the stored data to populate the old slot, doing a switch
+                    //bed time...
+                }
+                    return; //end function
             }
         }
     }
