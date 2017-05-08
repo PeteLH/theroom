@@ -25,13 +25,13 @@ public class Inventory : MonoBehaviour {
     public ToggleGroup lockedTogs;
     public Text clueName;
     public Animator InvnetoryHolderForAnim;
-    public InventoryItems[] inventorySlots;
+    public InventoryItems[] inventorySlots; //array of inventory items
 
     public bool pickingUpItem = false;
     public int pickedupitemNo;
 
     public RectTransform pickedupItem;
-    public RectTransform[] slots;
+    public RectTransform[] slots; //array of rects that represent the slots
     public RectTransform currentOver;
 
     void Start ()
@@ -86,8 +86,11 @@ public class Inventory : MonoBehaviour {
         return rect1.Overlaps(rect2);
     }
 
+    public int usedItemImage = -1;
     public void addItemToInventory(int clueNumber) //add the item of this clue number to the inventory 
     {
+        usedItemImage++;
+
         int i;
         for (i = 0; i < inventorySlots.Length; i++) //iterate through the inventory slots
 
@@ -95,10 +98,13 @@ public class Inventory : MonoBehaviour {
             if (inventorySlots[i].item == -1) //if the inventory slot is 0 (empty) 
             {
                 inventorySlots[i].item = clueNumber; //store the clue
-                unlockedClues[i].GetComponent<Image>().overrideSprite = clueManager.GetComponent<Cluemanager>().ClueBuilder[clueNumber].objectIcon; //set the UI image above that slot to the one of the clue
-                unlockedClues[i].GetComponent<Image>().enabled = true; //enable that image
 
-                inventorySlots[i].itemIcon = unlockedClues[i].GetComponent<Image>();
+                inventorySlots[i].itemIcon = unlockedClues[usedItemImage].GetComponent<Image>(); //cache the item image icon in the inventory array
+                unlockedClues[usedItemImage].transform.position = slots[i].transform.position; //move the icon to the same position as the invnetory slot
+
+                unlockedClues[usedItemImage].GetComponent<Image>().overrideSprite = clueManager.GetComponent<Cluemanager>().ClueBuilder[clueNumber].objectIcon; //set the UI image above that slot to the one of the clue
+                unlockedClues[usedItemImage].GetComponent<Image>().enabled = true; //enable that image
+
                 return; //break out of this fucntion 
             }
         }
@@ -123,11 +129,11 @@ public class Inventory : MonoBehaviour {
         }
     }
 
+    public int itemSwapCache; //cache of the item we're dropping into
+    public Image itemImageCache; //as above
+
     public void dropItem()
     {
-        Debug.Log("drop!"); //debuglog
-        pickingUpItem = false; //set this to false when we drop an item
-
         int i;
         for (i = 0; i < slots.Length; i++) //go through all our inventory slots
         {
@@ -148,14 +154,31 @@ public class Inventory : MonoBehaviour {
                     inventorySlots[PickedupItemSlot].itemIcon = null;
                     PickedupItemSlot = -1;
                 }
-                else if (inventorySlots[i].item != pickedupitemNo && inventorySlots[i].item >= 0) //is not the current slot and is not empty
+                else if (inventorySlots[i].item != pickedupitemNo && inventorySlots[i].item != -1) //is not the current slot and is not empty
                 {
-                    //need to get what's in the slot the item is dropping into and store it
-                    // drop the picked up item into this slot
+                    itemSwapCache = inventorySlots[i].item; //cache the item thats in the current slot we're dropping intp
+                    itemImageCache = inventorySlots[i].itemIcon; //cache the image of the current slot that we're droppinginto
+
+                    //move the image thats in the slot we're droppingonto to theprevious slot
+                    int iTwo;
+                    for (iTwo = 0; iTwo < unlockedClues.Length; iTwo++) //go through all our inventory images
+                    {
+                        if (iTwo == i) //compare the unlocked clouse array element with the slots array element 
+                        {
+                            unlockedClues[iTwo].transform.position = slots[PickedupItemSlot].transform.position;
+                        }
+                    }
+
+                    unlockedClues[pickedupitemNo].transform.position = slots[i].transform.position; //drop the item into that slot
+                    inventorySlots[i].item = pickedupitemNo; //update our inventory array item to be that item number
+                    inventorySlots[i].itemIcon = unlockedClues[pickedupitemNo].GetComponent<Image>(); //change the image in the inventory array to be the same as the one we have picked up
+
                     //then use the stored data to populate the old slot, doing a switch
-                    //bed time...
+                    inventorySlots[pickedupitemNo].item = itemSwapCache; //update our inventory array item to be that item number
+                    inventorySlots[pickedupitemNo].itemIcon = itemImageCache; //change the image in the inventory array to be the same as the one we have picked up
                 }
-                    return; //end function
+                Debug.Log("drop!"); //debuglog
+                pickingUpItem = false; //set this to false when we drop an item
             }
         }
     }
