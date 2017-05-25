@@ -48,11 +48,6 @@ public class RoomController : MonoBehaviour
     void Start()
     {
         RoomSpawner(0, 0);
-
-        //for (var i = 0; i < roomSets[0].ItemSetCombo.Length; i++) //for each item in room sets no. 0 > itemsetcombo array
-        //{
-        //     //trigger this function with the ints 0 & i, i being the iterator from above
-        //}
     }
 
     //public void spawnInEveryRoom(int itemFromSets)
