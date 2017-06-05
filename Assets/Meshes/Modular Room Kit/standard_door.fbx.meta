@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: c26135c956d28e34e8ec8c1c59b67457
-timeCreated: 1496609694
+guid: ded4c30b86293474c9dc73644600efb7
+timeCreated: 1496700130
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: pCube23
+    4300000: pCube32
     9500000: //RootNode
   materials:
     importMaterials: 1
