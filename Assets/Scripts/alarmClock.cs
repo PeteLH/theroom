@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 public class alarmClock : MonoBehaviour
 {
-
+    public bool isErratic;
+    public bool isBackwards;
     public Text hours;
     public Text mins;
     public Text seconds;
@@ -25,29 +26,100 @@ public class alarmClock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
+        if (isErratic ==  true)
+        {
+            erretciBehaviour();
+            return;
+        }
+
+        if (isBackwards == false)
+        {
+            time += Time.deltaTime;
+        }
+        else
+        {
+            time -= Time.deltaTime;
+        }
 
         secsNo = Mathf.FloorToInt(time);
 
-        if (time >= 60)
+        if (isBackwards == false)
         {
-            minsNo++;
-            time = 0;
-
-            if (minsNo >= 60)
+            if (time >= 60)
             {
-                hoursNo++;
-                minsNo = 0;
+                minsNo++;
+                time = 0;
 
-                if (hoursNo >= 24)
+                if (minsNo >= 60)
                 {
-                    hoursNo = 0;
+                    hoursNo++;
+                    minsNo = 0;
+
+                    if (hoursNo >= 24)
+                    {
+                        hoursNo = 0;
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (time <= 0)
+            {
+                minsNo--;
+                time = 60;
+
+                if (minsNo <= 0)
+                {
+                    hoursNo--;
+                    minsNo = 60;
+
+                    if (hoursNo <= 0)
+                    {
+                        hoursNo = 24;
+                    }
                 }
             }
         }
 
-        seconds.text = secsNo.ToString();
-        mins.text = minsNo.ToString();
-        hours.text = hoursNo.ToString();
+        setToString();
+    }
+
+    void erretciBehaviour()
+    {
+        secsNo = Random.Range(0, 60);
+        minsNo = Random.Range(0, 60);
+        hoursNo = Random.Range(0, 24);
+        setToString();
+    }
+
+    void setToString()
+    {
+        if (secsNo < 10)
+        {
+            seconds.text = "0" + secsNo.ToString();
+        }
+        else
+        {
+            seconds.text = secsNo.ToString();
+        }
+
+        if (minsNo < 10)
+        {
+            mins.text = "0" + minsNo.ToString();
+        }
+        else
+        {
+            mins.text = minsNo.ToString();
+        }
+
+        if (hoursNo < 10)
+        {
+            hours.text = "0" + hoursNo.ToString();
+        }
+        else
+        {
+            hours.text = hoursNo.ToString();
+        }
     }
 }
