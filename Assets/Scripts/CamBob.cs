@@ -10,8 +10,6 @@ public class CamBob : MonoBehaviour
     public float directionSwitchFrequency;
     public float speed;
 
-    float poo;
-
     void Awake()
     {
         if (camTransform == null) //if camera transofrm is not null 
@@ -23,7 +21,7 @@ public class CamBob : MonoBehaviour
 
     void Start()
     {
-        SwitchDIrection();
+        SwitchDIrection(directionNumber());
     }
 
     void Update()
@@ -34,38 +32,46 @@ public class CamBob : MonoBehaviour
         {
             time = 0.0f;
 
-            SwitchDIrection();
+            SwitchDIrection(directionNumber());
         }
 
         camTransform.Rotate (direction * Time.deltaTime * speed);
     }
 
-    int counter = 0;
-    void SwitchDIrection()
+    void SwitchDIrection(int switcher)
     {
-        counter++;
-        if (counter == 5)
+        switch (switcher)
         {
-            counter = 0;
-            direction = new Vector3 (23, 112, 4); //need to fix this, get cam to focus on orhinal position 
+            case 0:
+                direction = Vector3.left;
+                break;
+            case 1:
+                direction = Vector3.down;
+                break;
+            case 2:
+                direction = Vector3.right;
+                break;
+            case 3:
+                direction = Vector3.up;
+                break;
         }
-        else
+    }
+
+    int counter = 0;
+    int directionNumber()
+    {
+        switch (counter)
         {
-            switch (Random.Range(0, 3))
-            {
-                case 0:
-                    direction = Vector3.right;
-                    break;
-                case 1:
-                    direction = Vector3.left;
-                    break;
-                case 2:
-                    direction = Vector3.up;
-                    break;
-                case 3:
-                    direction = Vector3.down;
-                    break;
-            }
+            case 0:
+                int no1 = Random.Range(0, 2);
+                counter = 1;
+                return no1;
+            case 1:
+                int no2 = Random.Range(2, 4);
+                counter = 0;
+                return no2;
+            default:
+                return 0;
         }
     }
 }
