@@ -63,10 +63,12 @@ public class InteractableCheck : MonoBehaviour {
                 if(hit.transform.gameObject.GetComponent<ObjectData>().getsCollected == true || hit.transform.gameObject.GetComponent<ObjectData>().isLightSwitch == true || hit.transform.gameObject.GetComponent<ObjectData>().isAnimated == true)
                 {
                     grab.enabled = true;
+                    mouseClick.enabled = false;
                 }
                 else
                 {
                     mouseClick.enabled = true;
+                    grab.enabled = false;
                 }
 
                 if (cache.collider != null & cache.collider != hit.collider)
