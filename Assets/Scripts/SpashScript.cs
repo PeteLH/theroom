@@ -4,6 +4,7 @@ using System.Collections;
 public class SpashScript : MonoBehaviour {
 
     public GameObject mainMenu;
+    public bool toggleDestroyDEBUG;
 
 	// Use this for initialization
 	void Start () {
@@ -17,7 +18,10 @@ public class SpashScript : MonoBehaviour {
 
     public void destroyThisObject()
     {
-        mainMenu.SetActive(true);
-        Destroy(gameObject);
+        if (toggleDestroyDEBUG ==  false)
+        {
+            mainMenu.SetActive(true);
+            Destroy(gameObject);
+        }
     }
 }
