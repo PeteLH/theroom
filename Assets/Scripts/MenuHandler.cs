@@ -11,6 +11,7 @@ public class MenuHandler : MonoBehaviour {
     public Canvas HUD;
     public Canvas MainMenu;
     public Canvas tutorial;
+    public Canvas CinBars;
     public GameObject player;
     public GameObject inventoryController;
     public AudioSource MainMenuMusic;
@@ -45,18 +46,20 @@ public class MenuHandler : MonoBehaviour {
     {
 	if (hasSeenTut == false & Input.GetKeyDown("e") & tutorial.enabled == true)
         {
-            startPrologue();
+            startIntro();
+            //startPrologue();
         }
 
         if (Input.GetMouseButtonDown(0) & onPrologue == true)
         {
-            advancePeologue();
+            //advancePeologue();
         }
     }
     public void showTut()
     {
         MainMenu.enabled = false;
         tutorial.enabled = true;
+        CinBars.enabled = false;
         onGameStartSting();
     }
 
@@ -164,5 +167,10 @@ public class MenuHandler : MonoBehaviour {
     public void onGameStartSting()
     {
         sting.PlayOneShot(GameStartSting, 1f);
+    }
+
+    public void startIntro()
+    {
+
     }
 }
