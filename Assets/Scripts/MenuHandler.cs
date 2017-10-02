@@ -12,6 +12,7 @@ public class MenuHandler : MonoBehaviour {
     public Canvas MainMenu;
     public Canvas tutorial;
     public Canvas CinBars;
+    public Canvas Intro;
     public GameObject player;
     public GameObject inventoryController;
     public AudioSource MainMenuMusic;
@@ -171,6 +172,9 @@ public class MenuHandler : MonoBehaviour {
 
     public void startIntro()
     {
-
+        disableTutSCreen();
+        CinBars.enabled = true;
+        Intro.enabled = true;
+        Intro.GetComponent<Animator>().SetTrigger("go");
     }
 }
