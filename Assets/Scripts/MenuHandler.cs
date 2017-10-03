@@ -137,6 +137,7 @@ public class MenuHandler : MonoBehaviour {
     {
         prologue.enabled = false;
         onPrologue = false;
+        CinBars.enabled = false;
         menuCam.enabled = false;
         fpsCam.enabled = true;
         HUD.enabled = true;
