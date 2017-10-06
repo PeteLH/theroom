@@ -16,6 +16,7 @@ public class MenuHandler : MonoBehaviour {
     public GameObject player;
     public GameObject inventoryController;
     public AudioSource MainMenuMusic;
+    public AudioSource MusicTrack2;
     public AudioSource sting;
     public AudioClip UiClick;
     public AudioClip GameStartSting;
@@ -141,6 +142,7 @@ public class MenuHandler : MonoBehaviour {
         menuCam.enabled = false;
         fpsCam.enabled = true;
         HUD.enabled = true;
+        MainMenuMusic.mute = true;
 
         player.GetComponent<FirstPersonController>().enabled = true;
 
@@ -166,6 +168,11 @@ public class MenuHandler : MonoBehaviour {
         MainMenuMusic.PlayOneShot(UiClick, 1f);
     }
 
+    public void playMainMenuMusic()
+    {
+        MainMenuMusic.Play();
+    }
+
     public void onGameStartSting()
     {
         sting.PlayOneShot(GameStartSting, 1f);
@@ -173,9 +180,14 @@ public class MenuHandler : MonoBehaviour {
 
     public void startIntro()
     {
+        onGameStartSting();
+        MainMenu.enabled = false;
+        tutorial.enabled = false;
         disableTutSCreen();
         CinBars.enabled = true;
         Intro.enabled = true;
         Intro.GetComponent<Animator>().SetTrigger("go");
+        MainMenuMusic.Stop();
+        MusicTrack2.Play();
     }
 }
