@@ -8,6 +8,7 @@ public class MenuHandler : MonoBehaviour {
 
     public Camera fpsCam;
     public Camera menuCam;
+    public Camera establishingShotCam;
     public Canvas HUD;
     public Canvas MainMenu;
     public Canvas tutorial;
